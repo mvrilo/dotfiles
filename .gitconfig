@@ -1,0 +1,13 @@
+[user]
+  email = mvrilo@gmail.com
+  name = Murilo Santana
+
+[color]
+  ui = true
+
+[alias]
+  ci = commit
+  co = checkout
+  stat = status
+  st = status
+  ll = log --pretty=oneline --abbrev-commit --max-count=15
