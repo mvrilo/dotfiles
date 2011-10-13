@@ -11,3 +11,4 @@
   stat = status
   st = status
   ll = log --pretty=oneline --abbrev-commit --max-count=15
+  punch = !git pull && git push
