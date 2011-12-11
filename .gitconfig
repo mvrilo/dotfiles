@@ -2,13 +2,19 @@
   email = mvrilo@gmail.com
   name = Murilo Santana
 
+[github]
+  user = mvrilo
+
 [color]
   ui = true
+
+[core]
+  editor = /usr/bin/vim
 
 [alias]
   ci = commit
   co = checkout
   stat = status
   st = status
-  ll = log --pretty=oneline --abbrev-commit --max-count=15
+  ll = log --pretty=oneline --abbrev-commit --max-count=30
   punch = !git pull && git push
