@@ -40,3 +40,5 @@ nmap <C-t> :tabnew<CR>
 command! SortCSS :g#\({\n\)\@<=#.,/}/sort 
 
 colorscheme dante
+
+au BufNewFile,BufRead *.tac set ft=python
