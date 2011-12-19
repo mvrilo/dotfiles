@@ -1,6 +1,10 @@
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 IRB.conf[:AUTO_INDENT] = true
 
+def reload_irb
+  load File.expand_path("~/.irbrc")
+end
+
 # from github.com/rkh/dotfiles
 def sh *args
   system(
@@ -26,22 +30,12 @@ end
 
 %w(rubygems wirble hirb).each do |gem|
   begin
-    if gem != 'wirble'
-      require gem
-    else
-      require Gem.all_load_paths.grep(/wirble/).first + '/wirble'
-    end
+    require gem
   rescue LoadError
-    begin
-      sh "gem install #{gem}"
-      require gem
-    rescue
-      "Gem #{gem} could not be loaded."
-    end
+    puts "Gem #{gem} could not be loaded."
   end
 end
 
 Wirble.init
 Wirble.colorize
-
 Hirb.enable
