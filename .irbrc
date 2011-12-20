@@ -32,10 +32,12 @@ end
   begin
     require gem
   rescue LoadError
-    puts "Gem #{gem} could not be loaded."
+    puts "Gem '#{gem}' could not be loaded."
   end
 end
 
-Wirble.init
-Wirble.colorize
-Hirb.enable
+if defined? Wirble and defined? Hirb
+  Wirble.init
+  Wirble.colorize
+  Hirb.enable
+end
