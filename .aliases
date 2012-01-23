@@ -1,0 +1,10 @@
+alias ll='ls -aGlF'
+alias la='ls -AG'
+alias l='ls -CFG'
+alias sl='ls -G'
+
+alias quit='exit'
+alias :q='exit'
+
+alias yuicompressor="java -jar ~/dev/yuicompressor-2.4.2.jar"
+alias myip='curl -s http://ip.appspot.com'
