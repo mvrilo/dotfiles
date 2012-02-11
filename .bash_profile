@@ -3,7 +3,7 @@ source $HOME/.aliases
 source $HOME/.git-completion
 source $HOME/.rvm/scripts/rvm
 
-branch=$(echo '`__git_ps1 "(%s)"`')
+branch='`__git_ps1 "(%s)"`'
 
 # PS1
 export PS1="\h : \W ${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
