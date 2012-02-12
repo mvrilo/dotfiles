@@ -11,3 +11,16 @@ alias yuicompressor="java -jar ~/dev/yuicompressor-2.4.2.jar"
 alias myip='curl -s http://ip.appspot.com'
 alias psgrep='ps aux | grep'
 alias chrome='open -a /Applications/Google\ Chrome.app'
+
+# https://github.com/mathiasbynens/dotfiles/blob/master/.functions
+# Syntax-highlight JSON strings or files
+function json() {
+  if [ -p /dev/stdin ]; then
+    # piping, e.g. `echo '{"foo":42}' | json`
+    echo "input"
+    python -mjson.tool | pygmentize -l javascript
+  else
+    # e.g. `json '{"foo":42}'`
+    python -mjson.tool <<< "$*" | pygmentize -l javascript
+  fi
+}
