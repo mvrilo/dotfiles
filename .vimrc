@@ -36,6 +36,9 @@ nmap <C-n> :tabn<CR>
 nmap <C-p> :tabp<CR>
 nmap <C-t> :tabnew<CR>
 
+" No help
+nmap <F1> <Esc>
+
 " SortCSS attributes of a file inside each block
 command! SortCSS :g#\({\n\)\@<=#.,/}/sort 
 
