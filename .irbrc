@@ -5,6 +5,16 @@ def reload_irb
   load File.expand_path("~/.irbrc")
 end
 
+# Based on rue's irbrc => http://pastie.org/179534
+def quick(repetitions=100, &block)
+  require 'benchmark'
+
+  Benchmark.bmbm do |b|
+    b.report {repetitions.times &block} 
+  end
+  nil
+end
+
 # from github.com/rkh/dotfiles
 def sh *args
   system(
@@ -36,8 +46,10 @@ end
   end
 end
 
-if defined? Wirble and defined? Hirb
+if defined? Wirble
   Wirble.init
   Wirble.colorize
-  Hirb.enable
 end
+
+Hirb.enable if defined? Hirb
+include ActionView::Helpers if defined? ActionView
