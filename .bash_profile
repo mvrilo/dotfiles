@@ -7,7 +7,7 @@ branch='`__git_ps1 " (%s)"`'
 
 # PS1
 export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
-export PATH=$PATH:/usr/local/bin
+export PATH=/usr/local/bin:$PATH:/usr/local/sbin
 export NODE_PATH=`which node`
 export EDITOR=`which vim`
 export HISTSIZE=10000
