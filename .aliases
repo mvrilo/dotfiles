@@ -1,3 +1,5 @@
+#!/bin/bash
+
 alias ll='ls -aGlF'
 alias la='ls -AG'
 alias l='ls -CFG'
@@ -12,16 +14,3 @@ alias myip='curl -s http://ip.appspot.com'
 alias psgrep='ps aux | grep'
 alias chrome='open -a /Applications/Google\ Chrome.app'
 alias reload='source ~/.bash_profile'
-
-# https://github.com/mathiasbynens/dotfiles/blob/master/.functions
-# Syntax-highlight JSON strings or files
-function json() {
-  if [ -p /dev/stdin ]; then
-    # piping, e.g. `echo '{"foo":42}' | json`
-    echo "input"
-    python -mjson.tool | pygmentize -l javascript
-  else
-    # e.g. `json '{"foo":42}'`
-    python -mjson.tool <<< "$*" | pygmentize -l javascript
-  fi
-}
