@@ -4,4 +4,7 @@ gems = %q[boom wirble awesome_print hirb lolcat gifme]
 system("gem install #{gems}")
 
 packages = %q[picture-tube urban]
-system("npm install #{packages}")
+system("npm update && install #{packages}")
+
+formula = %q[fortune spark]
+system("brew update && brew install #{formula}")
