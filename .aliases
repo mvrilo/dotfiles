@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[ -f ~/.ssh_aliases ] && . ~/.ssh_aliases
+
 alias ll='ls -aGlF'
 alias la='ls -AG'
 alias l='ls -CFG'
