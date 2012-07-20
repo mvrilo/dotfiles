@@ -5,8 +5,9 @@ source $HOME/.rvm/scripts/rvm
 
 branch='`__git_ps1 " (%s)"`'
 
-# PS1
-export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
+[ "`uname`" == "Darwin" ] && H="\h" || H="xen"
+
+export PS1="$H : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export PATH=./bin:/usr/local/bin:$PATH:/usr/local/sbin:~/node_modules/.bin
 export NODE_PATH=`which node`
 export EDITOR=`which vim`
