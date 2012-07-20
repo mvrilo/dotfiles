@@ -45,8 +45,3 @@ command! SortCSS :g#\({\n\)\@<=#.,/}/sort
 colorscheme dante
 
 au BufNewFile,BufRead *.tac set ft=python
-
-au InsertEnter * :set nu
-au InsertLeave * :set rnu
-au FocusLost * :set nu
-au FocusGained * :set rnu
