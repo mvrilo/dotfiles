@@ -1,7 +1,7 @@
-source $HOME/.colors
-source $HOME/.aliases
-source $HOME/.git-completion
-source $HOME/.rvm/scripts/rvm
+source ~/.colors
+source ~/.aliases
+source ~/.git-completion
+source ~/.rvm/scripts/rvm
 
 branch='`__git_ps1 " (%s)"`'
 
@@ -14,4 +14,7 @@ export EDITOR=`which vim`
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups
-export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:* --help"
+export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit"
+
+# autocomplete for hosts in ssh config
+complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
