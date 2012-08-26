@@ -18,3 +18,7 @@ export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit"
 
 # autocomplete for hosts in ssh config
 complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
+
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
