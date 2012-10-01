@@ -1,6 +1,14 @@
 IRB.conf[:PROMPT_MODE] = :SIMPLE
 IRB.conf[:AUTO_INDENT] = true
 
+class Object
+  def pbcopy
+    s = self.to_s
+    `pbcopy <<< "#{s}"`
+    s
+  end
+end
+
 def reload_irb
   load File.expand_path("~/.irbrc")
 end
