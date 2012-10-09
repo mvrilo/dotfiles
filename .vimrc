@@ -2,6 +2,8 @@ filetype off
 call pathogen#runtime_append_all_bundles()
 filetype plugin indent on
 
+colorscheme dante
+
 set nocompatible
 
 set showcmd
@@ -27,6 +29,8 @@ set cursorline
 set background=dark
 set number
 set numberwidth=3
+set laststatus=2
+set statusline=\ %F\ %m%r%y%=[%c\ -\ %l\/%L\ (\%p%%)\ lines\ \|\ %P]\ 
 syntax on
 
 " Tab mappings
@@ -42,6 +46,7 @@ nmap <F1> <Esc>
 " SortCSS attributes of a file inside each block
 command! SortCSS :g#\({\n\)\@<=#.,/}/sort 
 
-colorscheme dante
-
 au BufNewFile,BufRead *.tac set ft=python
+au! BufWritePost .vimrc source %
+
+hi StatusLine ctermbg=black ctermfg=darkgrey
