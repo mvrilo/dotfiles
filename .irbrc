@@ -60,4 +60,5 @@ if defined? Wirble
 end
 
 Hirb.enable if defined? Hirb
-include ActionView::Helpers if defined? ActionView
+# https://github.com/rails/rails/issues/3144
+#include ActionView::Helpers if defined? ActionView
