@@ -20,6 +20,7 @@ set sts=2
 
 au FileType python setl ts=4 sw=4 sts=4 noet
 au FileType c setl ts=4 sw=4 sts=4 noet
+au FileType go setl ts=8 sw=8 sts=8 noet
 
 set expandtab
 set autoindent

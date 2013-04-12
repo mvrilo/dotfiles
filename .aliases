@@ -1,8 +1,11 @@
 #!/bin/bash
 
-[ "`uname`" == "Linux" ] && alias ls="ls --color"
+unset is_darwin
+[ "`uname`" == "Darwin" ] && export is_darwin=1
 
-alias ll='ls -aGlFh'
+[ $is_darwin ] && color="-G" || color="--color"
+
+alias ll="ls -alFh $color"
 alias sl='ll'
 alias l='ll'
 alias snv='svn'
@@ -12,4 +15,4 @@ alias :q='exit'
 
 alias myip='curl -s http://ip.appspot.com'
 alias chrome='open -a /Applications/Google\ Chrome.app'
-alias reload='source ~/.bash_profile'
+alias reload='. ~/.bash_profile'
