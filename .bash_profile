@@ -1,7 +1,7 @@
 source ~/.colors
 source ~/.aliases
 source ~/.git-completion
-source ~/.rvm/scripts/rvm
+[ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
 
 branch='`__git_ps1 " (%s)"`'
 
