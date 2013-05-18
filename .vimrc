@@ -53,5 +53,6 @@ command! SortCSS :g#\({\n\)\@<=#.,/}/sort
 
 au BufNewFile,BufRead *.tac set ft=python
 au! BufWritePost .vimrc source %
+au BufWritePre *.go :silent Fmt
 
 hi StatusLine ctermbg=white ctermfg=darkgrey
