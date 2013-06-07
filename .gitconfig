@@ -16,6 +16,6 @@
   co = checkout
   stat = status
   st = status
-  ll = log --pretty=oneline --abbrev-commit --max-count=30
-  lg = log --pretty=oneline --abbrev-commit --graph --decorate --date=relative
+  ll = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  lg = !git ll --graph
   punch = !git pull && git push
