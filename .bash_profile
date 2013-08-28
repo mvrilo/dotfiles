@@ -16,6 +16,7 @@ export EDITOR=`which vim`
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups
+export RAILS_ENV=development
 
 # autocomplete for hosts in ssh config
 [ -f ~/.ssh/config ] && complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
