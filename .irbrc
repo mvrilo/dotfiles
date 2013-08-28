@@ -60,5 +60,8 @@ if defined? Wirble
 end
 
 Hirb.enable if defined? Hirb
-# https://github.com/rails/rails/issues/3144
-#include ActionView::Helpers if defined? ActionView
+
+if defined? ::ActiveRecord
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+  ActiveRecord::Base.logger.level = Logger::DEBUG
+end
