@@ -43,15 +43,14 @@ nmap <A-Right> :tabn<CR>
 nmap <C-n> :tabn<CR>
 nmap <C-p> :tabp<CR>
 nmap <C-t> :tabnew<CR>
-
-" No help
 nmap <F1> <Esc>
 
 " SortCSS attributes of a file inside each block
 command! SortCSS :g#\({\n\)\@<=#.,/}/sort 
 command! Pwd :echo expand('%:p')
 
+let g:gofmt_command = "goimports"
 au BufNewFile,BufRead *.tac set ft=python
 au BufWritePost .vimrc source %
 au BufWritePre *.go :silent Fmt
-au BufWritePre *.rb,*.html,*.js silent! %s/\s*$//|''
+au BufWritePre *.rb,*.html*,*.js,*.css* silent! %s/\s*$//|''
