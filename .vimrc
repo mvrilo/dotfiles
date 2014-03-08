@@ -29,6 +29,7 @@ command! Pwd :echo expand('%:p')
 
 "let g:syntastic_check_on_open=1
 let g:gofmt_command = "goimports"
+let mapleader = ","
 
 au BufWritePre *.go :silent Fmt
 au BufWritePost .vimrc source %
@@ -43,7 +44,10 @@ nmap <A-Right>  :tabn<CR>
 nmap <C-n>      :tabn<CR>
 nmap <C-p>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>
+
+map  <Leader>wqa :wqa!<cr>
 map  <Leader>wq :wq!<cr>
+map  <Leader>wa  :wa!<cr>
 map  <Leader>w  :w!<cr>
 nmap <Leader>/  :nohlsearch<CR>
 
