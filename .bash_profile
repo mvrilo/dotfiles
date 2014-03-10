@@ -1,7 +1,8 @@
 source ~/.colors
 source ~/.aliases
 source ~/.git-completion
-[ -f ~/.rvm/scripts/rvm ] && source ~/.rvm/scripts/rvm
+rvm=~/.rvm/scripts/rvm; [ -f $rvm ] && source $rvm
+tmux=/usr/local/opt/tmux/etc/bash_completion.d/tmux; [ -f $tmux ] && source $tmux
 
 branch='`__git_ps1 " (%s)"`'
 
@@ -9,10 +10,10 @@ branch='`__git_ps1 " (%s)"`'
 
 export PS1="$MACHINE : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export PATH=~/bin:/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/share/npm/bin:~/node_modules/.bin:~/.go/bin
-export GOROOT=`go env GOROOT`
+export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=~/.go
 export GOBIN=$GOPATH/bin
-export NODE_PATH=`which node`
+export NODE_PATH=/usr/local/opt/node/bin
 export EDITOR=`which vim`
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE

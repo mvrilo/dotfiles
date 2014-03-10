@@ -11,19 +11,20 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'mattn/emmet-vim'
+Bundle 'mattn/webapi-vim'
+Bundle 'mattn/gist-vim'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'ervandew/supertab'
 Bundle 'ap/vim-css-color'
-Bundle 'wincent/Command-T'
 Bundle 'scrooloose/syntastic'
 Bundle 'itchyny/lightline.vim'
 Bundle 'junegunn/vim-easy-align'
-Bundle 'jQuery'
 Bundle 'pangloss/vim-javascript'
+Bundle 'kien/ctrlp.vim'
+Bundle 'jQuery'
 
 colorscheme dante
 
-" SortCSS attributes of a file inside each block
 command! SortCSS :g#\({\n\)\@<=#.,/}/sort
 command! Pwd :echo expand('%:p')
 
@@ -31,9 +32,17 @@ command! Pwd :echo expand('%:p')
 let g:gofmt_command = "goimports"
 let mapleader = ","
 
+" gist-vim config (most from README)
+if has("mac")
+  let g:gist_open_browser_after_post = 1
+  let g:gist_clip_command = 'pbcopy'
+endif
+let g:gist_post_private = 1
+let g:gist_show_privates = 1
+let g:gist_detect_filetype = 1
+
 au BufWritePre *.go :silent Fmt
 au BufWritePost .vimrc source %
-au BufNewFile,BufRead *.tac set ft=python
 au BufWritePre *.rb,*.html*,*.js,*.css* silent! %s/\s*$//|''
 au FileType python,c setl ts=4 sw=4 sts=4 noet
 au FileType go setl ts=8 sw=8 sts=8 noet
@@ -46,10 +55,10 @@ nmap <C-p>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>
 
 map  <Leader>wqa :wqa!<cr>
-map  <Leader>wq :wq!<cr>
+map  <Leader>wq  :wq!<cr>
 map  <Leader>wa  :wa!<cr>
-map  <Leader>w  :w!<cr>
-nmap <Leader>/  :nohlsearch<CR>
+map  <Leader>w   :w!<cr>
+nmap <Leader>/   :nohlsearch<CR>
 
 if executable('git')
   vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
@@ -57,11 +66,17 @@ if executable('git')
   map <Leader>gd :<C-U>!git diff <C-R>=expand("%:p")<CR><CR>
 endif
 
+"Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  set grepprg=ag\ --nogroup
+endif
+
 set showcmd
 set showmode
 set showmatch
 
 set wildmenu
+set wildmode=list:longest
 set incsearch
 set hlsearch
 
