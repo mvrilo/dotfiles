@@ -20,6 +20,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'itchyny/lightline.vim'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'pangloss/vim-javascript'
+Bundle 'flazz/vim-colorschemes'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jQuery'
 
