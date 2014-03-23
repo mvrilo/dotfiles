@@ -1,17 +1,17 @@
 #!/bin/bash
 
-unset is_darwin
-[ "`uname`" == "Darwin" ] && export is_darwin=1
+if [ "`uname`" == "Darwin" ]; then
+  alias ls="ls -G"
+else
+  alias ls="ls --color"
+fi
 
-[ $is_darwin ] && color="-G" || color="--color"
-
-alias ll="ls -alFh $color"
-alias sl='ll'
+alias ll="ls -alFh"
 alias l='ll'
 alias snv='svn'
 
 alias quit='exit'
-alias :q='exit'
+alias :e=$EDITOR
 
 alias myip='curl -s http://ip.appspot.com'
 alias chrome='open -a /Applications/Google\ Chrome.app'

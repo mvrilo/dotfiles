@@ -6,9 +6,7 @@ tmux=/usr/local/opt/tmux/etc/bash_completion.d/tmux; [ -f $tmux ] && source $tmu
 
 branch='`__git_ps1 " (%s)"`'
 
-[ $is_darwin ] && MACHINE="\h" || MACHINE=`hostname`
-
-export PS1="$MACHINE : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
+export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export PATH=~/bin:/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/share/npm/bin:~/node_modules/.bin:~/.go/bin
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=~/.go
@@ -27,4 +25,4 @@ export LC_ALL=en_US.UTF-8
 # autocomplete for hosts in ssh config
 [ -f ~/.ssh/config ] && complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
 
-fortune -os
+fortune -s

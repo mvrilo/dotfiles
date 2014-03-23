@@ -24,14 +24,15 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'kien/ctrlp.vim'
 Bundle 'jQuery'
 
-colorscheme dante
+colorscheme ir_black
 
 command! SortCSS :g#\({\n\)\@<=#.,/}/sort
 command! Pwd :echo expand('%:p')
+command! Sudow :w! !sudo tee % >/dev/null
 
 "let g:syntastic_check_on_open=1
 let g:gofmt_command = "goimports"
-let mapleader = ","
+let mapleader = "\<Space>"
 
 " gist-vim config (most from README)
 if has("mac")
@@ -42,8 +43,8 @@ let g:gist_post_private = 1
 let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
+"au BufWritePost .vimrc :silent source $MYVIMRC
 au BufWritePre *.go :silent Fmt
-au BufWritePost .vimrc source %
 au BufWritePre *.rb,*.html*,*.js,*.css* silent! %s/\s*$//|''
 au FileType python,c setl ts=4 sw=4 sts=4 noet
 au FileType go setl ts=8 sw=8 sts=8 noet
@@ -54,17 +55,22 @@ nmap <A-Right>  :tabn<CR>
 nmap <C-n>      :tabn<CR>
 nmap <C-p>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
 
-map  <Leader>wqa :wqa!<cr>
-map  <Leader>wq  :wq!<cr>
-map  <Leader>wa  :wa!<cr>
-map  <Leader>w   :w!<cr>
-nmap <Leader>/   :nohlsearch<CR>
+map  <leader>q  :q<cr>
+map  <leader>w  :w<cr>
+map  <leader>wq :wq<cr>
+nmap <silent> <leader>ev :e $MYVIMRC<cr>
+nmap <silent> <leader>rv :source $MYVIMRC<cr>
+nmap <silent> <leader>eb :e ~/.bash_profile<cr>
 
 if executable('git')
   vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
-  map <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
-  map <Leader>gd :<C-U>!git diff <C-R>=expand("%:p")<CR><CR>
+  map  <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
+  map  <Leader>gd :<C-U>!git diff <C-R>=expand("%:p")<CR><CR>
 endif
 
 "Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
@@ -98,4 +104,7 @@ set background=dark
 set number
 set numberwidth=3
 set laststatus=2
+set ttimeout
+set ttimeoutlen=2000
+set autoread
 syntax on
