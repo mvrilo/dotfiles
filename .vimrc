@@ -7,22 +7,29 @@ call vundle#rc()
 filetype plugin indent on
 
 Bundle 'gmarik/vundle'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-surround'
 Bundle 'mattn/emmet-vim'
 Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'ervandew/supertab'
-Bundle 'ap/vim-css-color'
-Bundle 'scrooloose/syntastic'
 Bundle 'itchyny/lightline.vim'
+Bundle 'kien/ctrlp.vim'
+
+Bundle 'tpope/vim-rails'
+Bundle 'tpope/vim-markdown'
+Bundle 'tpope/vim-surround'
+Bundle 'vim-ruby/vim-ruby'
+
+Bundle 'flazz/vim-colorschemes'
+Bundle 'scrooloose/syntastic'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'pangloss/vim-javascript'
-Bundle 'flazz/vim-colorschemes'
-Bundle 'kien/ctrlp.vim'
+Bundle 'ap/vim-css-color'
 Bundle 'jQuery'
+
+Bundle 'ervandew/supertab'
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "garbas/vim-snipmate"
+Bundle "honza/vim-snippets"
 
 colorscheme ir_black
 
