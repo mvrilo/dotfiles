@@ -31,6 +31,7 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
 Bundle 'fatih/vim-go'
+Bundle 'mvrilo/github-status-vim'
 
 colorscheme ir_black
 
