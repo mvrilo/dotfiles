@@ -66,7 +66,7 @@ map  <leader>q  :q<cr>
 map  <leader>w  :w<cr>
 map  <leader>wq :wq<cr>
 nmap <silent> <leader>ev :e $MYVIMRC<cr>
-nmap <silent> <leader>rv :source $MYVIMRC<cr>
+nmap <silent> <leader>rv :source $MYVIMRC<cr>:echo "~/.vimrc reloaded!"<cr>
 nmap <silent> <leader>eb :e ~/.bash_profile<cr>
 
 if executable('git')
