@@ -12,24 +12,25 @@ Bundle 'mattn/webapi-vim'
 Bundle 'mattn/gist-vim'
 Bundle 'itchyny/lightline.vim'
 Bundle 'kien/ctrlp.vim'
-
+Bundle 'tpope/vim-dispatch'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-endwise.git'
 Bundle 'vim-ruby/vim-ruby'
-
 Bundle 'flazz/vim-colorschemes'
 Bundle 'scrooloose/syntastic'
+Bundle 'bronson/vim-trailing-whitespace'
 Bundle 'junegunn/vim-easy-align'
 Bundle 'pangloss/vim-javascript'
 Bundle 'ap/vim-css-color'
 Bundle 'jQuery'
-
 Bundle 'ervandew/supertab'
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "honza/vim-snippets"
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
+Bundle 'fatih/vim-go'
 
 colorscheme ir_black
 
@@ -38,7 +39,7 @@ command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
 
 "let g:syntastic_check_on_open=1
-let g:gofmt_command = "goimports"
+let g:go_fmt_command = "gofmt" "goimports
 let mapleader = "\<Space>"
 
 " gist-vim config (most from README)
@@ -50,11 +51,7 @@ let g:gist_post_private = 1
 let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
-"au BufWritePost .vimrc :silent source $MYVIMRC
-au BufWritePre *.go :silent Fmt
-au BufWritePre *.rb,*.html*,*.js,*.css* silent! %s/\s*$//|''
 au FileType python,c setl ts=4 sw=4 sts=4 noet
-au FileType go setl ts=8 sw=8 sts=8 noet
 
 nmap <F1> <Esc>
 nmap <A-Left>   :tabp<CR>
@@ -62,10 +59,7 @@ nmap <A-Right>  :tabn<CR>
 nmap <C-n>      :tabn<CR>
 nmap <C-p>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-  nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
-endif
+nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 
 map  <leader>q  :q<cr>
 map  <leader>w  :w<cr>
