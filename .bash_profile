@@ -3,8 +3,9 @@ source ~/.aliases
 source ~/.git-completion
 rvm=~/.rvm/scripts/rvm; [ -f $rvm ] && source $rvm
 tmux=/usr/local/opt/tmux/etc/bash_completion.d/tmux; [ -f $tmux ] && source $tmux
+branch=''
 
-branch='`__git_ps1 " (%s)"`'
+[ "`type __git_ps1 | head -n1`" == "__git_ps1 is a function" ] && branch='`__git_ps1 " (%s)"`'
 
 export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export PATH=~/bin:/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/share/npm/bin:~/node_modules/.bin:~/.go/bin
