@@ -1,10 +1,8 @@
 set nocompatible
 
 filetype off
-set rtp+=$GOROOT/misc/vim/
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
-filetype plugin indent on
 
 Bundle 'gmarik/vundle'
 Bundle 'mattn/emmet-vim'
@@ -17,6 +15,7 @@ Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-markdown'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-endwise.git'
+Bundle 'tpope/vim-fugitive'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'scrooloose/syntastic'
@@ -31,6 +30,7 @@ Bundle 'tomtom/tlib_vim'
 Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
 Bundle 'fatih/vim-go'
+Bundle 'kchmck/vim-coffee-script'
 Bundle 'mvrilo/github-status-vim'
 
 colorscheme ir_black
@@ -110,3 +110,4 @@ set ttimeout
 set ttimeoutlen=2000
 set autoread
 syntax on
+filetype plugin indent on
