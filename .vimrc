@@ -52,7 +52,7 @@ let g:gist_post_private = 1
 let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
-au FileType python,c setl ts=4 sw=4 sts=4 noet
+au FileType go,python,c setl ts=4 sw=4 sts=4 noet
 
 nmap <F1> <Esc>
 nmap <A-Left>   :tabp<CR>
@@ -109,5 +109,6 @@ set laststatus=2
 set ttimeout
 set ttimeoutlen=2000
 set autoread
+set cm=blowfish
 syntax on
 filetype plugin indent on
