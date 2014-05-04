@@ -12,6 +12,7 @@ alias snv='svn'
 
 alias quit='exit'
 alias :e=$EDITOR
+alias vimrc='vim ~/.vimrc'
 
 alias myip='curl -s http://ip.appspot.com'
 alias chrome='open -a /Applications/Google\ Chrome.app'
