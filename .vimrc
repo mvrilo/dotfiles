@@ -54,6 +54,10 @@ let g:gist_detect_filetype = 1
 
 au FileType go,python,c setl ts=4 sw=4 sts=4 noet
 
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
+
+nnoremap ; :
 nmap <F1> <Esc>
 nmap <A-Left>   :tabp<CR>
 nmap <A-Right>  :tabn<CR>
@@ -66,8 +70,10 @@ map  <leader>q  :q<cr>
 map  <leader>w  :w<cr>
 map  <leader>wq :wq<cr>
 nmap <silent> <leader>ev :e $MYVIMRC<cr>
+nmap <silent> <leader>tv :tabnew $MYVIMRC<cr>
 nmap <silent> <leader>rv :source $MYVIMRC<cr>:echo "~/.vimrc reloaded!"<cr>
 nmap <silent> <leader>eb :e ~/.bash_profile<cr>
+nmap <silent> <leader>tb :tabnew ~/.bash_profile<cr>
 
 if executable('git')
   vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
