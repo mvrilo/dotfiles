@@ -24,6 +24,7 @@ Bundle 'junegunn/vim-easy-align'
 Bundle 'pangloss/vim-javascript'
 Bundle 'ap/vim-css-color'
 Bundle 'jQuery'
+Bundle 'vim-scripts/matchit.zip'
 Bundle 'ervandew/supertab'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
@@ -31,6 +32,8 @@ Bundle 'garbas/vim-snipmate'
 Bundle 'honza/vim-snippets'
 Bundle 'fatih/vim-go'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'groenewege/vim-less'
+Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'mvrilo/github-status-vim'
 
 colorscheme ir_black
@@ -56,13 +59,14 @@ au FileType go,python,c setl ts=4 sw=4 sts=4 noet
 
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v', 100)
+au BufNewFile,BufRead * call matchadd('ColorColumn', '\%81v', 100)
 
 nnoremap ; :
 nmap <F1> <Esc>
 nmap <A-Left>   :tabp<CR>
 nmap <A-Right>  :tabn<CR>
 nmap <C-n>      :tabn<CR>
-nmap <C-p>      :tabp<CR>
+nmap <C-m>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>
 nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
 
