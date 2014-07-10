@@ -6,14 +6,22 @@ else
   alias ls="ls --color"
 fi
 
+alias ..="cd .."
 alias ll="ls -alFh"
 alias l='ll'
 alias snv='svn'
-
 alias quit='exit'
 alias :e=$EDITOR
 alias vimrc='vim ~/.vimrc'
-
 alias myip='curl -s http://ip.appspot.com'
 alias chrome='open -a /Applications/Google\ Chrome.app'
 alias reload='. ~/.bash_profile'
+
+cat() {
+  if ! type pygmentize >/dev/null 2>&1; then
+    /bin/cat $@
+    return
+  fi
+  pygmentize $@ 2> /dev/null
+  [ $? -ne 0 ] && /bin/cat $@
+}

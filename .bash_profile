@@ -24,6 +24,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export DOCKER_HOST=tcp://localhost:4243
 export CDPATH=.:~/dev
+export rvmsudo_secure_path=1
 
 # autocomplete for hosts in ssh config
 [ -f ~/.ssh/config ] && complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
