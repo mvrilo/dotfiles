@@ -34,7 +34,6 @@ Bundle 'mvrilo/github-status-vim'
 
 colorscheme ir_black
 
-command! SortCSS :g#\({\n\)\@<=#.,/}/sort
 command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
 
@@ -51,7 +50,7 @@ let g:gist_post_private = 1
 let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
-au FileType go,python,c setl ts=4 sw=4 sts=4 noet
+au FileType go,python,c setl ts=8 sw=8 sts=8 noet
 
 highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v', 100)
@@ -65,7 +64,6 @@ nmap <C-n>      :tabn<CR>
 nmap <C-m>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>
 nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
-
 map  <leader>q  :q<cr>
 map  <leader>w  :w<cr>
 map  <leader>wq :wq<cr>
@@ -74,17 +72,9 @@ nmap <silent> <leader>tv :tabnew $MYVIMRC<cr>
 nmap <silent> <leader>rv :source $MYVIMRC<cr>:echo "~/.vimrc reloaded!"<cr>
 nmap <silent> <leader>eb :e ~/.bash_profile<cr>
 nmap <silent> <leader>tb :tabnew ~/.bash_profile<cr>
-
-if executable('git')
-  vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
-  map  <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
-  map  <Leader>gd :<C-U>!git diff <C-R>=expand("%:p")<CR><CR>
-endif
-
-"Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
-if executable('ag')
-  set grepprg=ag\ --nogroup
-endif
+vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
+map  <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
+map  <Leader>gd :<C-U>!git diff <C-R>=expand("%:p")<CR><CR>
 
 set pastetoggle=<leader>z
 set showcmd
