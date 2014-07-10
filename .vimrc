@@ -25,15 +25,11 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'ap/vim-css-color'
 Bundle 'jQuery'
 Bundle 'vim-scripts/matchit.zip'
-Bundle 'ervandew/supertab'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
+Bundle 'SirVer/ultisnips'
 Bundle 'honza/vim-snippets'
 Bundle 'fatih/vim-go'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'groenewege/vim-less'
-Bundle 'AndrewRadev/splitjoin.vim'
 Bundle 'mvrilo/github-status-vim'
 
 colorscheme ir_black
@@ -90,24 +86,21 @@ if executable('ag')
   set grepprg=ag\ --nogroup
 endif
 
+set pastetoggle=<leader>z
 set showcmd
 set showmode
 set showmatch
-
 set wildmenu
 set wildmode=list:longest
 set incsearch
 set hlsearch
-
 set ts=2
 set sw=2
 set sts=2
-
 set expandtab
 set autoindent
 set smartindent
 set backspace=indent,eol,start
-
 set wrap
 set ruler
 set mouse=a
