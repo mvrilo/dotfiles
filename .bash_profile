@@ -11,7 +11,6 @@ export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export PATH=~/bin:/usr/local/bin:$PATH:/usr/local/sbin:/usr/local/share/npm/bin:~/node_modules/.bin:~/.go/bin
 export GOROOT=/usr/local/opt/go/libexec
 export GOPATH=~/.go
-export GOBIN=$GOPATH/bin
 export NODE_PATH=/usr/local/opt/node/bin
 export EDITOR=`which vim`
 export HISTSIZE=10000
