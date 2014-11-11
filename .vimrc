@@ -1,38 +1,36 @@
 set nocompatible
-
 filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
-Bundle 'gmarik/vundle'
-Bundle 'mattn/emmet-vim'
-Bundle 'mattn/webapi-vim'
-Bundle 'mattn/gist-vim'
-Bundle 'itchyny/lightline.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-markdown'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-endwise.git'
-Bundle 'tpope/vim-fugitive'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'flazz/vim-colorschemes'
-Bundle 'scrooloose/syntastic'
-Bundle 'bronson/vim-trailing-whitespace'
-Bundle 'junegunn/vim-easy-align'
-Bundle 'pangloss/vim-javascript'
-Bundle 'ap/vim-css-color'
-Bundle 'jQuery'
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
-Bundle 'fatih/vim-go'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'groenewege/vim-less'
-Bundle 'mvrilo/github-status-vim'
+call plug#begin("~/.vim/plugs")
+Plug 'mattn/emmet-vim'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/gist-vim', { 'on': 'Gist' }
+Plug 'itchyny/lightline.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+Plug 'flazz/vim-colorschemes'
+Plug 'scrooloose/syntastic'
+Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
+Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
+Plug 'pangloss/vim-javascript'
+Plug 'ap/vim-css-color', { 'for': 'css' }
+Plug 'jQuery'
+Plug 'vim-scripts/matchit.zip'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'haya14busa/incsearch.vim'
+Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
+call plug#end()
 
-colorscheme ir_black
+colorscheme badwolf
 
 command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
@@ -51,10 +49,6 @@ let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
 au FileType go,python,c setl ts=8 sw=8 sts=8 noet
-
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
-au BufNewFile,BufRead * call matchadd('ColorColumn', '\%81v', 100)
 
 nnoremap ; :
 nmap <F1> <Esc>
@@ -76,14 +70,25 @@ vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'
 map  <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
 map  <Leader>gd :<C-U>!git diff <C-R>=expand("%:p")<CR><CR>
 
+" incsearch.vim
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)
+map g/ <Plug>(incsearch-stay)
+
 set pastetoggle=<leader>z
 set showcmd
 set showmode
 set showmatch
 set wildmenu
 set wildmode=list:longest
-set incsearch
-set hlsearch
 set ts=2
 set sw=2
 set sts=2
@@ -105,3 +110,7 @@ set autoread
 set cm=blowfish
 syntax on
 filetype plugin indent on
+
+highlight ColorColumn ctermbg=1
+call matchadd('ColorColumn', '\%81v', 100)
+au BufNewFile,BufRead * call matchadd('ColorColumn', '\%81v', 100)
