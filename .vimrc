@@ -31,6 +31,10 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
 call plug#end()
 
+" ensure the reload of vimrc when Goyo! (exitting)
+autocmd! User GoyoLeave
+autocmd  User GoyoLeave nested source ~/.vimrc
+
 colorscheme badwolf
 
 command! Pwd :echo expand('%:p')
