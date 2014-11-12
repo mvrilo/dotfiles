@@ -8,6 +8,7 @@ Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'itchyny/lightline.vim'
 Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
@@ -28,6 +29,7 @@ Plug 'fatih/vim-go', { 'for': 'go' }
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'haya14busa/incsearch.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+Plug 'pekepeke/titanium-vim'
 Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
 call plug#end()
 
@@ -54,6 +56,7 @@ let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
 au FileType go,python,c setl ts=8 sw=8 sts=8 noet
+au BufRead,BufNewFile *.tss set filetype=javascript " Titanium Alloy Style Files
 
 nnoremap ; :
 nmap <F1> <Esc>
