@@ -14,6 +14,7 @@ Plug 'tpope/vim-rails'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive', { 'on': 'Git' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'flazz/vim-colorschemes'
@@ -56,10 +57,10 @@ let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
 au FileType go,python,c setl ts=8 sw=8 sts=8 noet
-au BufRead,BufNewFile *.tss set filetype=javascript " Titanium Alloy Style Files
+let g:syntastic_ignore_files = ['tss']
+au BufRead,BufNewFile *.tss set ft=javascript " Titanium Alloy Style Files
 
 nnoremap ; :
-nmap <F1> <Esc>
 nmap <C-n>      :tabn<CR>
 nmap <C-m>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>
