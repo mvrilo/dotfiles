@@ -15,7 +15,7 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' }
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-fugitive', { 'on': 'Git' }
+Plug 'tpope/vim-fugitive'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/syntastic'
