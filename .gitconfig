@@ -16,6 +16,7 @@
   co = checkout
   stat = status
   st = status
+  ls = ls-files
   ll = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   lg = !git ll --graph
   punch = !git pull && git push
