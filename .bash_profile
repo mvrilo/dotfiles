@@ -10,7 +10,7 @@ source ~/.aliases
 
 export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export GOPATH=~/.go
-export PATH=~/.bin:$PATH
+export PATH=~/bin:$PATH
 export EDITOR=`which vim`
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
