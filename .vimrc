@@ -104,7 +104,10 @@ set background=dark
 set number
 set numberwidth=3
 set ttimeoutlen=1000
-set cm=blowfish
+
+if !has('nvim')
+  set cm=blowfish
+endif
 
 highlight ColorColumn ctermbg=1
 call matchadd('ColorColumn', '\%81v', 100)
