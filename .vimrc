@@ -12,18 +12,19 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-markdown', { 'for': 'markdown' }
-Plug 'tpope/vim-surround'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/syntastic'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
 Plug 'pangloss/vim-javascript'
 Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'vim-scripts/matchit.zip'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/neosnippet'
+Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'fatih/vim-go', { 'for': 'go' }
@@ -31,6 +32,7 @@ Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'haya14busa/incsearch.vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'pekepeke/titanium-vim'
+Plug 'majutsushi/tagbar'
 Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
 call plug#end()
 
@@ -43,9 +45,9 @@ colorscheme badwolf
 command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
 
-"let g:syntastic_check_on_open=1
-let g:go_fmt_command = "gofmt" "goimports
 let mapleader = ","
+
+let g:neocomplete#enable_at_startup = 1
 
 " gist-vim config (most from README)
 if has("mac")
@@ -56,9 +58,10 @@ let g:gist_post_private = 1
 let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
-au FileType go,python,c setl ts=8 sw=8 sts=8 noet
 let g:syntastic_ignore_files = ['tss']
+
 au BufRead,BufNewFile *.tss set ft=javascript " Titanium Alloy Style Files
+au FileType go,python,c setl ts=8 sw=8 sts=8 noet
 
 nnoremap ; :
 nmap <C-n>      :tabn<CR>
@@ -74,6 +77,9 @@ nmap <silent> <leader>eb :e ~/.bash_profile<cr>
 nmap <silent> <leader>tb :tabnew ~/.bash_profile<cr>
 vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 map  <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
+
+vnoremap < <gv
+vnoremap > >gv
 
 " incsearch.vim
 set hlsearch
@@ -104,6 +110,7 @@ set background=dark
 set number
 set numberwidth=3
 set ttimeoutlen=1000
+set equalalways
 
 if !has('nvim')
   set cm=blowfish
