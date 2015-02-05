@@ -22,23 +22,26 @@ Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
 Plug 'pangloss/vim-javascript'
 Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'vim-scripts/matchit.zip'
-Plug 'Shougo/neocomplete.vim'
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'haya14busa/incsearch.vim'
+Plug 'pekepeke/titanium-vim'
+Plug 'majutsushi/tagbar'
+Plug 'airblade/vim-gitgutter'
+Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
+if has('lua')
+  Plug 'Shougo/neocomplete.vim'
+else
+  Plug 'Shougo/neocomplcache.vim'
+endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'groenewege/vim-less', { 'for': 'less' }
-Plug 'haya14busa/incsearch.vim'
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-Plug 'pekepeke/titanium-vim'
-Plug 'majutsushi/tagbar'
-Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
 call plug#end()
 
-" ensure the reload of vimrc when Goyo! (exitting)
-autocmd! User GoyoLeave
-autocmd  User GoyoLeave nested source ~/.vimrc
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
 
 colorscheme badwolf
 
