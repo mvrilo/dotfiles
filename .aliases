@@ -25,3 +25,35 @@ cat() {
   pygmentize $@ 2> /dev/null
   [ $? -ne 0 ] && /bin/cat $@
 }
+
+# Syntax-highlight JSON strings or files
+# https://github.com/mathiasbynens/dotfiles/blob/master/.functions
+json() {
+  if [ -p /dev/stdin ]; then
+    # piping, e.g. `echo '{"foo":42}' | json`
+    python -mjson.tool | pygmentize -l javascript
+  else
+    # e.g. `json '{"foo":42}'`
+    python -mjson.tool <<< "$*" | pygmentize -l javascript
+  fi
+}
+
+dataurl() {
+  if [[ -f "$1" ]]; then
+    echo "data:image/${1##*.};base64,$(openssl base64 -in "$1")" | tr -d '\n'
+    return 0
+  fi
+
+  echo "dataurl - converts an image to base64 data format"
+  echo ""
+  echo "Usage:"
+  echo -e "\tdataurl <path/to/image.png>"
+  return 1
+}
+
+headers() {
+  curl -sv "$@" 2>&1 >/dev/null |
+    grep -v "^\*" |
+    grep -v "^}" |
+    cut -c3-
+}
