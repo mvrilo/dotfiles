@@ -28,6 +28,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'pekepeke/titanium-vim'
 Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
+Plug 'jamessan/vim-gnupg'
 Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
 if has('lua')
   Plug 'Shougo/neocomplete.vim'
