@@ -120,6 +120,4 @@ if !has('nvim')
   set cm=blowfish
 endif
 
-highlight ColorColumn ctermbg=1
-call matchadd('ColorColumn', '\%81v', 100)
-au BufNewFile,BufRead * call matchadd('ColorColumn', '\%81v', 100)
+match ErrorMsg '\%81v'
