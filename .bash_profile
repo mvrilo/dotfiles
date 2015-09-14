@@ -16,8 +16,8 @@ fi
 
 export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export GOPATH="$HOME/.go"
-export PATH="$HOME/bin:$GOPATH/bin:$PATH:$HOME/.rvm/bin:/usr/local/sbin"
-export EDITOR=$(which vim)
+export PATH="$HOME/.rvm/bin:$GOPATH/bin:/usr/local/sbin:$PATH"
+export EDITOR="$(which vim)"
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups
@@ -36,3 +36,15 @@ alias l='ll'
 alias snv='svn'
 alias vimrc='vim ~/.vimrc'
 alias reload='. ~/.bash_profile'
+
+gs() { git status "$@"; }
+gd() { git diff "$@"; }
+gc() { git ci "$@"; }
+
+onep() { osascript -e "open location \"x-onepassword-helper://search/$1\""; }
+
+gencert() {
+  local name="${1-server}"
+  openssl req -x509 -newkey rsa:1024 -keyout "${name}.key" -out "${name}.crt" -days 3650 -nodes
+  openssl pkcs12 -export -out "${name}.pfx" -inkey "${name}".key -in "${name}.crt"
+}
