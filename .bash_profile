@@ -1,9 +1,8 @@
 #!/bin/bash
 
+[[ -s "$HOME/.secrets" ]] && source "$HOME/.secrets"
 [[ -f /usr/local/etc/bash_completion ]] && . /usr/local/etc/bash_completion
 [[ -f "$HOME/.ssh/config" ]] && complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-[[ -s "$HOME/.secrets" ]] && source "$HOME/.secrets"
 
 DARKGRAY='\[\e[1;30m\]'
 LIGHTGREEN='\[\e[1;32m\]'
@@ -20,7 +19,7 @@ export PATH="$HOME/.rvm/bin:$GOPATH/bin:/usr/local/sbin:$PATH"
 export EDITOR="$(which vim)"
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
-export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoredups:ignorespace
 export RAILS_ENV=development
 export GREP_OPTIONS=--color=auto
 export LANGUAGE=en_US.UTF-8
@@ -48,3 +47,7 @@ gencert() {
   openssl req -x509 -newkey rsa:1024 -keyout "${name}.key" -out "${name}.crt" -days 3650 -nodes
   openssl pkcs12 -export -out "${name}.pfx" -inkey "${name}".key -in "${name}.crt"
 }
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+[[ "$TERM" != "screen"* ]] && tmux a -t base 2>/dev/null || tmux new-session -s base 2>/dev/null
