@@ -30,28 +30,35 @@ Plug 'majutsushi/tagbar'
 Plug 'airblade/vim-gitgutter'
 Plug 'jamessan/vim-gnupg'
 Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
-if has('lua')
-  Plug 'Shougo/neocomplete.vim'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim'
 else
-  Plug 'Shougo/neocomplcache.vim'
+  if has('lua')
+    Plug 'Shougo/neocomplete.vim'
+  else
+    Plug 'Shougo/neocomplcache.vim'
+  endif
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'Shougo/unite.vim'
+Plug 'toyamarinyon/vim-swift'
+Plug 'elixir-lang/vim-elixir'
+Plug 'mattn/sonictemplate-vim'
+Plug 'Yggdroot/indentLine'
+Plug 'junegunn/gv.vim'
 call plug#end()
 
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
+let g:indentLine_enabled = 1
 
-colorscheme badwolf
+colorscheme hybrid
 
 command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
 
 let mapleader = ","
-
-let g:neocomplete#enable_at_startup = 1
 
 " gist-vim config (most from README)
 if has("mac")
@@ -63,11 +70,11 @@ let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
 let g:syntastic_ignore_files = ['tss']
+let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
 au BufRead,BufNewFile *.tss set ft=javascript " Titanium Alloy Style Files
 au FileType go,python,c setl ts=8 sw=8 sts=8 noet
 
-nnoremap ; :
 nmap <C-n>      :tabn<CR>
 nmap <C-m>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>
@@ -115,9 +122,5 @@ set number
 set numberwidth=3
 set ttimeoutlen=1000
 set equalalways
-
-if !has('nvim')
-  set cm=blowfish
-endif
 
 match ErrorMsg '\%81v'
