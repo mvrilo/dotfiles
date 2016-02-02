@@ -12,7 +12,7 @@
   editor = /usr/bin/vim
 
 [alias]
-  ci = commit
+  ci = commit --verbose
   co = checkout
   stat = status
   st = status
