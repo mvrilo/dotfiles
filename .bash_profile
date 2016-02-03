@@ -16,7 +16,6 @@ fi
 export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export GOPATH="$HOME/.go"
 export PATH="$HOME/.rvm/bin:$GOPATH/bin:/usr/local/sbin:$PATH"
-export EDITOR="$(which vim)"
 export HISTSIZE=10000
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups:ignorespace
@@ -28,6 +27,13 @@ export LC_ALL=en_US.UTF-8
 export rvmsudo_secure_path=1
 export LESS="-R"
 export CLICOLOR=1
+export EDITOR="$(which vim)"
+
+if which nvim &>/dev/null; then
+  export EDITOR="$(which nvim)"
+  export NVIM_PYTHON_LOG_FILE=/tmp/log
+  export NVIM_PYTHON_LOG_LEVEL=DEBUG
+fi
 
 alias ..="cd .."
 alias ll="ls -alFh"
