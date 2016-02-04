@@ -41,6 +41,7 @@ else
 endif
 Plug 'Shougo/neosnippet'
 Plug 'Shougo/neosnippet-snippets'
+Plug 'honza/vim-snippets'
 Plug 'Shougo/unite.vim'
 Plug 'toyamarinyon/vim-swift'
 Plug 'elixir-lang/vim-elixir'
@@ -49,9 +50,13 @@ Plug 'Yggdroot/indentLine'
 Plug 'junegunn/gv.vim'
 call plug#end()
 
+if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+endif
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:indentLine_enabled = 1
+let g:neosnippet#snippets_directory='~/.vim/plugs/vim-snippets/snippets'
 
 colorscheme hybrid
 
@@ -88,6 +93,14 @@ nmap <silent> <leader>eb :e ~/.bash_profile<cr>
 nmap <silent> <leader>tb :tabnew ~/.bash_profile<cr>
 vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 map  <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
+
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+smap <expr><TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ neosnippet#expandable_or_jumpable() ?
+      \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 vnoremap < <gv
 vnoremap > >gv
