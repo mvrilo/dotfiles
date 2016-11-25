@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -f ~/.sensible.bash ]; then
+  source ~/.sensible.bash
+fi
+
 [[ -s "$HOME/.secrets" ]] && source "$HOME/.secrets"
 [[ -f /usr/local/etc/bash_completion ]] && . /usr/local/etc/bash_completion
 [[ -f "$HOME/.ssh/config" ]] && complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
@@ -16,9 +20,6 @@ fi
 export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export GOPATH="$HOME/.go"
 export PATH="$HOME/.rvm/bin:$GOPATH/bin:/usr/local/sbin:$PATH"
-export HISTSIZE=10000
-export HISTFILESIZE=$HISTSIZE
-export HISTCONTROL=ignoredups:ignorespace
 export RAILS_ENV=development
 export GREP_OPTIONS=--color=auto
 export LANGUAGE=en_US.UTF-8
@@ -57,3 +58,11 @@ gencert() {
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 [[ "$TERM" != "screen"* ]] && tmux a -t base 2>/dev/null || tmux new-session -s base 2>/dev/null
+
+dcleanup() {
+  # Delete all stopped containers
+  docker ps -q -f status=exited | xargs --no-run-if-empty docker rm
+
+  # Delete all dangling (unused) images
+  docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
+}
