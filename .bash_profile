@@ -28,7 +28,11 @@ export LC_ALL=en_US.UTF-8
 export rvmsudo_secure_path=1
 export LESS="-R"
 export CLICOLOR=1
-export EDITOR="$(which vim)"
+export EDITOR="$(which /usr/local/bin/nvim ||
+                 which /usr/local/bin/vim ||
+                 which /usr/bin/vim)"
+export HOMEBREW_NO_ANALYTICS=1
+export GIT_EDITOR=$EDITOR
 
 if which nvim &>/dev/null; then
   export EDITOR="$(which nvim)"
@@ -42,6 +46,7 @@ alias l='ll'
 alias snv='svn'
 alias vimrc='vim ~/.vimrc'
 alias reload='. ~/.bash_profile'
+alias v="$EDITOR"
 
 gs() { git status "$@"; }
 gd() { git diff "$@"; }
