@@ -1,12 +1,18 @@
 #!/bin/bash
 
-if [ -f ~/.sensible.bash ]; then
-  source ~/.sensible.bash
-fi
+[[ -s ~/.secrets ]] && source ~/.secrets
+[[ -f ~/.sensible.bash ]] && source ~/.sensible.bash
+[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
+[[ -f /usr/local/etc/bash_completion ]] && source /usr/local/etc/bash_completion
 
-[[ -s "$HOME/.secrets" ]] && source "$HOME/.secrets"
-[[ -f /usr/local/etc/bash_completion ]] && . /usr/local/etc/bash_completion
-[[ -f "$HOME/.ssh/config" ]] && complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+[[ -f ~/.ssh/config ]] && complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
+
+shopt -s nocaseglob
+shopt -s histappend
+shopt -s cdspell
+shopt -s globstar
 
 DARKGRAY='\[\e[1;30m\]'
 LIGHTGREEN='\[\e[1;32m\]'
@@ -28,14 +34,14 @@ export LC_ALL=en_US.UTF-8
 export rvmsudo_secure_path=1
 export LESS="-R"
 export CLICOLOR=1
+export HOMEBREW_NO_ANALYTICS=1
+export GIT_EDITOR=$EDITOR
+export ANDROID_HOME=/usr/local/opt/android-sdk
 export EDITOR="$(which /usr/local/bin/nvim ||
                  which /usr/local/bin/vim ||
                  which /usr/bin/vim)"
-export HOMEBREW_NO_ANALYTICS=1
-export GIT_EDITOR=$EDITOR
 
 if which nvim &>/dev/null; then
-  export EDITOR="$(which nvim)"
   export NVIM_PYTHON_LOG_FILE=/tmp/log
   export NVIM_PYTHON_LOG_LEVEL=DEBUG
 fi
@@ -43,10 +49,9 @@ fi
 alias ..="cd .."
 alias ll="ls -alFh"
 alias l='ll'
-alias snv='svn'
-alias vimrc='vim ~/.vimrc'
+alias vimrc="$EDITOR ~/.vimrc"
 alias reload='. ~/.bash_profile'
-alias v="$EDITOR"
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 gs() { git status "$@"; }
 gd() { git diff "$@"; }
@@ -60,14 +65,12 @@ gencert() {
   openssl pkcs12 -export -out "${name}.pfx" -inkey "${name}".key -in "${name}.crt"
 }
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-[[ "$TERM" != "screen"* ]] && tmux a -t base 2>/dev/null || tmux new-session -s base 2>/dev/null
+# [[ "$TERM" != "screen"* ]] && tmux a -t base 2>/dev/null || tmux new-session -s base 2>/dev/null
 
 dcleanup() {
   # Delete all stopped containers
-  docker ps -q -f status=exited | xargs --no-run-if-empty docker rm
+  docker ps -q -f status=exited | xargs docker rm
 
   # Delete all dangling (unused) images
-  docker images -q -f dangling=true | xargs --no-run-if-empty docker rmi
+  docker images -q -f dangling=true | xargs docker rmi
 }
