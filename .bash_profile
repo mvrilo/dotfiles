@@ -2,8 +2,9 @@
 
 [[ -s ~/.secrets ]] && source ~/.secrets
 [[ -f ~/.sensible.bash ]] && source ~/.sensible.bash
-[[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 [[ -f /usr/local/etc/bash_completion ]] && source /usr/local/etc/bash_completion
+[[ -f /usr/local/opt/fzf/shell/completion.bash ]] && source /usr/local/opt/fzf/shell/completion.bash
+[[ -f /usr/local/opt/fzf/shell/key-bindings.bash ]] && source /usr/local/opt/fzf/shell/key-bindings.bash
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
