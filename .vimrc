@@ -53,6 +53,7 @@ Plug 'junegunn/gv.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'burnettk/vim-angular'
 Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'rakr/vim-one'
 call plug#end()
 
 if has('nvim')
@@ -62,7 +63,7 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:indentLine_enabled = 1
 
-colorscheme hybrid
+colorscheme one
 
 command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
