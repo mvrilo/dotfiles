@@ -2,12 +2,23 @@ set nocompatible
 filetype off
 
 call plug#begin("~/.vim/plugs")
-Plug 'tpope/vim-sensible'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'tpope/vim-sensible'
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+
 Plug 'mattn/emmet-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'itchyny/lightline.vim'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rails'
@@ -16,38 +27,32 @@ Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'scrooloose/syntastic'
+Plug 'scrooloose/nerdtree'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
 Plug 'pangloss/vim-javascript'
 Plug 'ap/vim-css-color', { 'for': 'css' }
 Plug 'vim-scripts/matchit.zip'
-Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'fatih/vim-go'
 Plug 'groenewege/vim-less', { 'for': 'less' }
 Plug 'haya14busa/incsearch.vim'
 Plug 'pekepeke/titanium-vim'
+Plug 'pearofducks/ansible-vim'
 Plug 'majutsushi/tagbar'
+Plug 'mxw/vim-jsx'
 Plug 'airblade/vim-gitgutter'
 Plug 'jamessan/vim-gnupg'
 Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
-if has('nvim')
-  Plug 'Shougo/deoplete.nvim'
-else
-  if has('lua')
-    Plug 'Shougo/neocomplete.vim'
-  else
-    Plug 'Shougo/neocomplcache.vim'
-  endif
-endif
-Plug 'Shougo/neosnippet'
-Plug 'Shougo/neosnippet-snippets'
-Plug 'honza/vim-snippets'
-Plug 'Shougo/unite.vim'
+Plug 'w0rp/ale'
+Plug 'Shougo/denite.nvim'
 Plug 'toyamarinyon/vim-swift'
 Plug 'elixir-lang/vim-elixir'
 Plug 'mattn/sonictemplate-vim'
 Plug 'Yggdroot/indentLine'
 Plug 'junegunn/gv.vim'
+Plug 'leafgarland/typescript-vim'
+Plug 'burnettk/vim-angular'
+Plug 'othree/javascript-libraries-syntax.vim'
 call plug#end()
 
 if has('nvim')
@@ -56,7 +61,6 @@ endif
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:indentLine_enabled = 1
-let g:neosnippet#snippets_directory='~/.vim/plugs/vim-snippets/snippets'
 
 colorscheme hybrid
 
@@ -75,10 +79,20 @@ let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
 let g:syntastic_ignore_files = ['tss']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
 au BufRead,BufNewFile *.tss set ft=javascript " Titanium Alloy Style Files
-au FileType go,python,c setl ts=8 sw=8 sts=8 noet
+au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+au BufNewFile,BufReadPost *.md setl ts=4 sw=4 sts=4 expandtab
+au BufNewFile,BufRead *.lua setlocal noet ts=4 sw=4 sts=4
+au FileType dockerfile set noexpandtab
+au FileType fstab,systemd set noexpandtab
+au FileType gitconfig,sh,toml set noexpandtab
+
+set wildmenu
+set wildmode=list:longest
+set wildmode=list:full
 
 nmap <C-n>      :tabn<CR>
 nmap <C-m>      :tabp<CR>
@@ -93,14 +107,6 @@ nmap <silent> <leader>eb :e ~/.bash_profile<cr>
 nmap <silent> <leader>tb :tabnew ~/.bash_profile<cr>
 vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 map  <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
-
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-      \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-smap <expr><TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ neosnippet#expandable_or_jumpable() ?
-      \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 vnoremap < <gv
 vnoremap > >gv
@@ -118,6 +124,7 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 map g/ <Plug>(incsearch-stay)
 
+set t_ti= t_te=
 set pastetoggle=<leader>z
 set showmode
 set wildmenu
@@ -133,7 +140,7 @@ set cursorline
 set background=dark
 set number
 set numberwidth=3
-set ttimeoutlen=1000
+set notimeout timeoutlen=1000 ttimeoutlen=0
 set equalalways
 
 match ErrorMsg '\%81v'
