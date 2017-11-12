@@ -1,1 +1,1 @@
-/Users/mvrilo/.vim/autoload/vim-plug/plug.vim
+vim-plug/plug.vim
