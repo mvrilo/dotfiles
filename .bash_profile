@@ -1,6 +1,6 @@
 #!/bin/bash
 
-[[ -s ~/.secrets ]] && source ~/.secrets
+[[ -f ~/.secrets ]] && source ~/.secrets
 [[ -f ~/.sensible.bash ]] && source ~/.sensible.bash
 [[ -f /usr/local/etc/bash_completion ]] && source /usr/local/etc/bash_completion
 [[ -f /usr/local/opt/fzf/shell/completion.bash ]] && source /usr/local/opt/fzf/shell/completion.bash
@@ -74,4 +74,19 @@ dcleanup() {
 
   # Delete all dangling (unused) images
   docker images -q -f dangling=true | xargs docker rmi
+}
+
+sshtor() {
+	ssh -o ProxyCommand='nc -x 0:9050 %h %p' "$1"
+}
+
+maximize() {
+	local path=~/maximize.applescript
+
+	if ! [[ -f $path ]]; then
+		echo "maximize script not found: '$path'"
+		return 1
+	fi
+
+	osascript $path
 }
