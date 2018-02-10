@@ -7,6 +7,7 @@ tap 'homebrew/headonly'
 tap 'homebrew/services'
 tap 'neovim/neovim'
 
+brew 'ripgrep'
 brew 'ack'
 brew 'arping'
 brew 'git'
