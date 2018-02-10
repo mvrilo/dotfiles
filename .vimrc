@@ -56,6 +56,10 @@ Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'rakr/vim-one'
 call plug#end()
 
+let g:ale_linters = {
+\   'javascript': ['eslint'],
+\}
+
 if has('nvim')
   let g:deoplete#enable_at_startup = 1
 endif
@@ -78,10 +82,6 @@ endif
 let g:gist_post_private = 1
 let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
-
-let g:syntastic_ignore_files = ['tss']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_go_checkers = ['golint', 'govet', 'errcheck']
 
 au BufRead,BufNewFile *.tss set ft=javascript " Titanium Alloy Style Files
 au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
