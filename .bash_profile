@@ -83,6 +83,11 @@ sshtor() {
 maximize() {
 	local path=~/maximize.applescript
 
+	if [[ "$(uname)" != "Darwin" ]]; then
+		echo "OS not supported"
+		return 1
+	fi
+
 	if ! [[ -f $path ]]; then
 		echo "maximize script not found: '$path'"
 		return 1
