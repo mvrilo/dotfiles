@@ -66,7 +66,7 @@ gencert() {
   openssl pkcs12 -export -out "${name}.pfx" -inkey "${name}".key -in "${name}.crt"
 }
 
-# [[ "$TERM" != "screen"* ]] && tmux a -t base 2>/dev/null || tmux new-session -s base 2>/dev/null
+# [[ "$TERM" != "screen"* ]] && tn
 
 dcleanup() {
   # Delete all stopped containers
@@ -94,4 +94,12 @@ maximize() {
 	fi
 
 	osascript $path
+}
+
+tn() {
+	tmux new-session -s "${1-base}" -c "${2-HOME}" 2>/dev/null
+}
+
+tna() {
+	tmux attach -t "${1-base}" 2>/dev/null || tn "$@"
 }
