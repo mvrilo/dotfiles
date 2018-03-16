@@ -27,8 +27,6 @@ fi
 export PS1="\h : \W${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export GOPATH="$HOME/.go"
 export PATH="$HOME/.rvm/bin:$GOPATH/bin:/usr/local/sbin:$PATH"
-export RAILS_ENV=development
-export GREP_OPTIONS=--color=auto
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -38,9 +36,9 @@ export CLICOLOR=1
 export HOMEBREW_NO_ANALYTICS=1
 export GIT_EDITOR=$EDITOR
 export ANDROID_HOME=/usr/local/opt/android-sdk
-export EDITOR="$(which /usr/local/bin/nvim ||
-                 which /usr/local/bin/vim ||
-                 which /usr/bin/vim)"
+export EDITOR="$(which /usr/local/bin/nvim 2>/dev/null ||
+                 which /usr/local/bin/vim  2>/dev/null ||
+                 which /usr/bin/vim        2>/dev/null)"
 
 if which nvim &>/dev/null; then
   export NVIM_PYTHON_LOG_FILE=/tmp/log
@@ -54,9 +52,16 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias reload='. ~/.bash_profile'
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
+ta()  { tmux attach -t "${1-base}" 2>/dev/null; }
+tn()  { tmux new-session -s "${1-base}" -c "${2-HOME}" 2>/dev/null; } 
+tan() { ta "$@" || tn "$@"; }
+
+sshtor() { ssh -o ProxyCommand='nc -x 0:9050 %h %p' "$1"; }
+
 gs() { git status "$@"; }
-gd() { git diff "$@"; }
 gc() { git ci "$@"; }
+gd() { git diff "$@"; }
+gl() { git log "$@"; }
 
 onep() { osascript -e "open location \"x-onepassword-helper://search/$1\""; }
 
@@ -66,18 +71,12 @@ gencert() {
   openssl pkcs12 -export -out "${name}.pfx" -inkey "${name}".key -in "${name}.crt"
 }
 
-# [[ "$TERM" != "screen"* ]] && tn
-
 dcleanup() {
   # Delete all stopped containers
   docker ps -q -f status=exited | xargs docker rm
 
   # Delete all dangling (unused) images
   docker images -q -f dangling=true | xargs docker rmi
-}
-
-sshtor() {
-	ssh -o ProxyCommand='nc -x 0:9050 %h %p' "$1"
 }
 
 maximize() {
@@ -96,10 +95,4 @@ maximize() {
 	osascript $path
 }
 
-tn() {
-	tmux new-session -s "${1-base}" -c "${2-HOME}" 2>/dev/null
-}
-
-tna() {
-	tmux attach -t "${1-base}" 2>/dev/null || tn "$@"
-}
+# [[ "$TERM" != "screen"* ]] && tan
