@@ -34,6 +34,7 @@ export rvmsudo_secure_path=1
 export LESS="-R"
 export CLICOLOR=1
 export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_AUTO_UPDATE_SECS=604800
 export GIT_EDITOR=$EDITOR
 export ANDROID_HOME=/usr/local/opt/android-sdk
 export EDITOR="$(which /usr/local/bin/nvim 2>/dev/null ||
@@ -52,9 +53,7 @@ alias vimrc="$EDITOR ~/.vimrc"
 alias reload='. ~/.bash_profile'
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
-ta()  { tmux attach -t "${1-base}" 2>/dev/null; }
-tn()  { tmux new-session -s "${1-base}" -c "${2-HOME}" 2>/dev/null; } 
-tan() { ta "$@" || tn "$@"; }
+tn()  { tmux new-session -A -s "${1-base}" -c "${2-HOME}" 2>/dev/null; }
 
 sshtor() { ssh -o ProxyCommand='nc -x 0:9050 %h %p' "$1"; }
 
