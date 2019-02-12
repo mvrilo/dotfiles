@@ -2,10 +2,12 @@ set nocompatible
 filetype off
 
 call plug#begin("~/.vim/plugs")
+Plug 'tpope/vim-sensible'
+Plug 'mattn/webapi-vim'
+
 if has('nvim')
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'tpope/vim-sensible'
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
@@ -14,77 +16,76 @@ endif
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 Plug 'mattn/emmet-vim'
-Plug 'mattn/webapi-vim'
+Plug 'mhinz/vim-startify'
+Plug 'scrooloose/nerdtree'
+Plug 'Shougo/neco-syntax'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
-Plug 'itchyny/lightline.vim'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rails'
-Plug 'tpope/vim-markdown', { 'for': 'markdown' }
+Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'scrooloose/nerdtree'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
-Plug 'pangloss/vim-javascript'
-Plug 'ap/vim-css-color', { 'for': 'css' }
-Plug 'vim-scripts/matchit.zip'
-Plug 'fatih/vim-go'
-Plug 'groenewege/vim-less', { 'for': 'less' }
+Plug 'andymass/vim-matchup'
 Plug 'haya14busa/incsearch.vim'
-Plug 'pekepeke/titanium-vim'
-Plug 'pearofducks/ansible-vim'
-Plug 'majutsushi/tagbar'
-Plug 'mxw/vim-jsx'
 Plug 'airblade/vim-gitgutter'
-Plug 'jamessan/vim-gnupg'
-Plug 'mvrilo/github-status-vim', { 'on': 'GithubStatus' }
 Plug 'w0rp/ale'
-Plug 'Shougo/denite.nvim'
-Plug 'toyamarinyon/vim-swift'
-Plug 'elixir-lang/vim-elixir'
-Plug 'mattn/sonictemplate-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'sbdchd/neoformat'
+Plug 'prettier/prettier'
 Plug 'Yggdroot/indentLine'
-Plug 'junegunn/gv.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'burnettk/vim-angular'
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'rakr/vim-one'
 Plug 'tpope/vim-rhubarb'
-Plug 'sheerun/vim-polyglot'
+Plug 'w0ng/vim-hybrid'
+Plug 'mvrilo/vim-caplet'
+Plug 'chr4/nginx.vim'
+Plug 'fatih/vim-go'
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'pangloss/vim-javascript'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'othree/yajs'
+Plug 'leafgarland/typescript-vim'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh \| UpdateRemotePlugins'}
 call plug#end()
 
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\}
-
-" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
-
-if has('nvim')
-  let g:deoplete#enable_at_startup = 1
-endif
-let g:gitgutter_realtime = 0
-let g:gitgutter_eager = 0
-let g:indentLine_enabled = 1
-
-colorscheme one
+au BufWritePre *.css,*.scss,*.js,*.jsx,*.tsx Neoformat prettier
+colorscheme hybrid
 
 command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
 
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 let mapleader = ","
 
-" gist-vim config (most from README)
+let g:gitgutter_realtime = 0
+let g:gitgutter_eager = 0
+let g:indentLine_enabled = 1
+
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#option('smart_case', v:true)
+
+let g:jsx_ext_required = 0
+let g:ale_linters = {
+\  'ruby': ['rubocop', 'reek'],
+\  'javascript': ['prettier', 'eslint', 'flow'],
+\  'typescript': ['prettier', 'tslint', 'tsserver', 'typecheck']
+\}
+
 if has("mac")
   let g:gist_open_browser_after_post = 1
   let g:gist_clip_command = 'pbcopy'
@@ -93,18 +94,18 @@ let g:gist_post_private = 1
 let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
-au BufRead,BufNewFile *.tss set ft=javascript " Titanium Alloy Style Files
-au BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
-au BufNewFile,BufReadPost *.md setl ts=4 sw=4 sts=4 expandtab
-au BufNewFile,BufRead *.lua setlocal noet ts=4 sw=4 sts=4
-au FileType dockerfile set noexpandtab
-au FileType fstab,systemd set noexpandtab
-au FileType gitconfig,sh,toml set noexpandtab
+au BufNewFile,BufReadPost *.md setl expandtab ts=4 sw=4 sts=4
+au BufNewFile,BufRead *.lua,*.go setl noexpandtab ts=4 sw=4 sts=4
+au FileType dockerfile,fstab,systemd,gitconfig,sh,toml setl noexpandtab
 
-set wildmenu
-set wildmode=list:longest
-set wildmode=list:full
+autocmd VimEnter *
+            \   if !argc()
+            \ |   Startify
+            \ |   NERDTree
+            \ |   wincmd w
+            \ | endif
 
+nmap <C-p>      :FZF<CR>
 nmap <C-n>      :tabn<CR>
 nmap <C-m>      :tabp<CR>
 nmap <C-t>      :tabnew<CR>

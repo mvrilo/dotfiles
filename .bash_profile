@@ -1,14 +1,9 @@
 #!/bin/bash
 
-[[ -f ~/.secrets ]] && source ~/.secrets
-[[ -f ~/.sensible.bash ]] && source ~/.sensible.bash
+[[ -f "$HOME/.sensible.bash" ]] && source "$HOME/.sensible.bash"
+[[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
+[[ -f "$HOME/.ssh/config" ]] && complete -o default -W "$(awk '/^Host / {print $2}' < "$HOME/.ssh/config")" scp sftp ssh
 [[ -f /usr/local/etc/bash_completion ]] && source /usr/local/etc/bash_completion
-[[ -f /usr/local/opt/fzf/shell/completion.bash ]] && source /usr/local/opt/fzf/shell/completion.bash
-[[ -f /usr/local/opt/fzf/shell/key-bindings.bash ]] && source /usr/local/opt/fzf/shell/key-bindings.bash
-
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
-[[ -f ~/.ssh/config ]] && complete -o default -W "$(awk '/^Host / {print $2}' < ~/.ssh/config)" scp sftp ssh
 
 shopt -s nocaseglob
 shopt -s histappend
@@ -17,6 +12,8 @@ shopt -s globstar
 
 DARKGRAY='\[\e[1;30m\]'
 LIGHTGREEN='\[\e[1;32m\]'
+LIGHTGRAY='\[\e[1;37m\]'
+LIGHTCYAN='\[\e[1;96m\]'
 WHITE='\[\e[1;37m\]'
 NC='\[\e[0m\]' # reset color
 
@@ -24,45 +21,47 @@ if command -v __git_ps1 &>/dev/null; then
   branch='`__git_ps1 " (%s)"`'
 fi
 
-export PS1="\h : \w${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
+export PS1="${LIGHTCYAN}\h ${NC}\w${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export GOPATH="$HOME/.go"
-export PATH="$HOME/.rvm/bin:$GOPATH/bin:/usr/local/sbin:$PATH"
+export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.rvm/bin:$GOPATH/bin:/usr/local/sbin:$PATH"
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export rvmsudo_secure_path=1
 export LESS="-R"
 export CLICOLOR=1
 export HOMEBREW_NO_ANALYTICS=1
 export HOMEBREW_AUTO_UPDATE_SECS=604800
-export GIT_EDITOR=$EDITOR
-export ANDROID_HOME=/usr/local/opt/android-sdk
+export ANDROID_SDK="$HOME/Library/Android/sdk"
 export EDITOR="$(which /usr/local/bin/nvim 2>/dev/null ||
                  which /usr/local/bin/vim  2>/dev/null ||
                  which /usr/bin/vim        2>/dev/null)"
-
-if which nvim &>/dev/null; then
-  export NVIM_PYTHON_LOG_FILE=/tmp/log
-  export NVIM_PYTHON_LOG_LEVEL=DEBUG
-fi
+export GIT_EDITOR=$EDITOR
 
 alias ..="cd .."
 alias ll="ls -alFh"
 alias l='ll'
-alias vimrc="$EDITOR ~/.vimrc"
-alias reload='. ~/.bash_profile'
+alias vimrc="$EDITOR $HOME/.vimrc"
+alias reload=". $HOME/.bash_profile"
 alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
-tn()  { tmux new-session -A -s "${1-base}" -c "${2-HOME}" 2>/dev/null; }
+tn() { tmux new-session -A -s "${1-base}" -c "${2-HOME}" "${3-htop}" 2>/dev/null; }
 
 sshtor() { ssh -o ProxyCommand='nc -x 0:9050 %h %p' "$1"; }
 
-gs() { git status "$@"; }
-gc() { git ci "$@"; }
-gd() { git diff "$@"; }
-gl() { git log "$@"; }
+ga()  { git add "$@"; }
+gc()  { git ci "$@"; }
+gca() { git ci --amend "$@"; }
+gd()  { git diff "$@"; }
+gl()  { git log "$@"; }
+gls() { git log --stat "$@"; }
+gs()  { git status "$@"; }
+gss() { git status -s "$@"; }
+gpl() { git pull "$@"; }
+gps() { git push "$@"; }
 
 onep() { osascript -e "open location \"x-onepassword-helper://search/$1\""; }
+
+genpass() { openssl rand -hex "${1-64}"; }
 
 gencert() {
   local name="${1-server}"
@@ -70,28 +69,9 @@ gencert() {
   openssl pkcs12 -export -out "${name}.pfx" -inkey "${name}".key -in "${name}.crt"
 }
 
-dcleanup() {
-  # Delete all stopped containers
-  docker ps -q -f status=exited | xargs docker rm
+[[ -f /usr/local/opt/fzf/shell/completion.bash ]] && source /usr/local/opt/fzf/shell/completion.bash
+[[ -f /usr/local/opt/fzf/shell/key-bindings.bash ]] && source /usr/local/opt/fzf/shell/key-bindings.bash
 
-  # Delete all dangling (unused) images
-  docker images -q -f dangling=true | xargs docker rmi
-}
+# [[ "$TERM" != "screen"* ]] && tn
 
-maximize() {
-	local path=~/maximize.applescript
-
-	if [[ "$(uname)" != "Darwin" ]]; then
-		echo "OS not supported"
-		return 1
-	fi
-
-	if ! [[ -f $path ]]; then
-		echo "maximize script not found: '$path'"
-		return 1
-	fi
-
-	osascript $path
-}
-
-# [[ "$TERM" != "screen"* ]] && tan
+eval "$(jump shell)"
