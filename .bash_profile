@@ -23,7 +23,14 @@ fi
 
 export PS1="${LIGHTCYAN}\h ${NC}\w${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export GOPATH="$HOME/.go"
-export PATH="$HOME/bin:$HOME/.cargo/bin:$HOME/.rvm/bin:$GOPATH/bin:/usr/local/sbin:$PATH"
+
+export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.rvm/bin:$PATH"
+export PATH="$GOPATH/bin:$PATH"
+export PATH="/usr/local/opt/ruby/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+
 export LANGUAGE=en_US.UTF-8
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -74,4 +81,4 @@ gencert() {
 
 # [[ "$TERM" != "screen"* ]] && tn
 
-eval "$(jump shell)"
+# eval "$(jump shell)"
