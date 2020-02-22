@@ -1,6 +1,3 @@
-set nocompatible
-filetype off
-
 call plug#begin("~/.vim/plugs")
 Plug 'tpope/vim-sensible'
 Plug 'mattn/webapi-vim'
@@ -16,17 +13,14 @@ endif
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
 Plug 'mattn/emmet-vim'
 Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdtree'
+Plug 'SirVer/ultisnips'
 Plug 'Shougo/neco-syntax'
 Plug 'mattn/gist-vim', { 'on': 'Gist' }
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-rails'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-commentary'
@@ -45,7 +39,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'w0ng/vim-hybrid'
 Plug 'mvrilo/vim-caplet'
 Plug 'chr4/nginx.vim'
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', {'do': 'GoInstallBinaries'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
@@ -56,7 +50,6 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript', {'do': './install.sh \| UpdateRemotePlugins'}
 call plug#end()
 
-au BufWritePre *.css,*.scss,*.js,*.jsx,*.tsx Neoformat prettier
 colorscheme hybrid
 
 command! Pwd :echo expand('%:p')
@@ -70,7 +63,26 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'gitbranch', 'filename', 'modified' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype', 'charvaluehex' ] ],
+      \ },
+      \ 'component': {
+      \   'charvaluehex': '0x%B'
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
 let mapleader = ","
+
+let g:go_version_warning = 0
+let g:go_fmt_command = "goimports"
 
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
@@ -81,9 +93,8 @@ call deoplete#custom#option('smart_case', v:true)
 
 let g:jsx_ext_required = 0
 let g:ale_linters = {
-\  'ruby': ['rubocop', 'reek'],
-\  'javascript': ['prettier', 'eslint', 'flow'],
-\  'typescript': ['prettier', 'tslint', 'tsserver', 'typecheck']
+\  'javascript': ['eslint', 'flow', 'prettier'],
+\  'typescript': ['eslint', 'tslint', 'tsserver', 'typecheck', 'prettier']
 \}
 
 if has("mac")
@@ -94,17 +105,12 @@ let g:gist_post_private = 1
 let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
-au BufNewFile,BufReadPost *.md setl expandtab ts=4 sw=4 sts=4
+au BufNewFile,BufReadPost *.csv set nowrap
+au BufNewFile,BufReadPost *.md,*.sql setl expandtab ts=4 sw=4 sts=4
 au BufNewFile,BufRead *.lua,*.go setl noexpandtab ts=4 sw=4 sts=4
-au FileType dockerfile,fstab,systemd,gitconfig,sh,toml setl noexpandtab
+au FileType dockerfile,fstab,systemd,gitconfig,bash,sh,toml setl noexpandtab
 
-autocmd VimEnter *
-            \   if !argc()
-            \ |   Startify
-            \ |   NERDTree
-            \ |   wincmd w
-            \ | endif
-
+map <space> /
 nmap <C-p>      :FZF<CR>
 nmap <C-n>      :tabn<CR>
 nmap <C-m>      :tabp<CR>
@@ -136,9 +142,9 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 map g/ <Plug>(incsearch-stay)
 
+set encoding=UTF-8
 set t_ti= t_te=
 set pastetoggle=<leader>z
-set showmode
 set wildmenu
 set wildmode=list:longest
 set ts=2
@@ -154,5 +160,6 @@ set number
 set numberwidth=3
 set notimeout timeoutlen=1000 ttimeoutlen=0
 set equalalways
+set noshowmode
 
 match ErrorMsg '\%81v'
