@@ -21,7 +21,6 @@ install_mac() {
 }
 
 install_linux() {
-	sudo apt update
 	sudo apt install -y \
 		bash \
 		git \
@@ -39,7 +38,25 @@ install_linux() {
 		tmux \
 		tree \
 		vim
-	}
+}
+
+install_node() {
+	npm i -g \
+		eslint \
+		neovim \
+		prettier \
+		serve \
+		tslint \
+		typescript \
+		yarn \
+		ts-node
+}
+
+install_go() {
+  go get -v -u github.com/mvrilo/go-cpf/cmd/cpf
+  go get -v -u github.com/cjbassi/gotop
+  go get -v -u github.com/jesseduffield/lazydocker
+}
 
 main() {
   if [ "$(uname -s)" = "Darwin" ]; then
@@ -50,16 +67,8 @@ main() {
 
 	git submodule update --init
 
-	npm i -g \
-		yarn \
-		prettier \
-		eslint \
-		typescript \
-		tslint \
-		neovim \
-		serve
-
-  go get -v -u github.com/mvrilo/go-cpf/cmd/cpf
+  install_node
+  install_go
 }
 
 main
