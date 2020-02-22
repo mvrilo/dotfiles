@@ -9,7 +9,7 @@ install_mac() {
   fi
 
 	brew tap 'homebrew/bundle'
-	brew bundle install --verbose
+	brew bundle install
 
 	pip3 install --user -U pip neovim pynvim
 	gem install -u neovim
@@ -52,9 +52,9 @@ install_node() {
 }
 
 install_go() {
-  go get -v -u github.com/mvrilo/go-cpf/cmd/cpf
-  go get -v -u github.com/cjbassi/gotop
-  go get -v -u github.com/jesseduffield/lazydocker
+  go get -u github.com/mvrilo/go-cpf/cmd/cpf
+  go get -u github.com/cjbassi/gotop
+  go get -u github.com/jesseduffield/lazydocker
 }
 
 main() {
