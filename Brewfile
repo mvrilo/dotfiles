@@ -2,6 +2,7 @@ cask_args appdir: "/Applications"
 
 tap 'caskroom/cask'
 tap 'homebrew/services'
+tap 'homebrew/cask-fonts'
 
 brew 'ansible'
 brew 'arping'
