@@ -23,10 +23,14 @@ fi
 
 export PS1="${LIGHTCYAN}\h ${NC}\w${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
 export GOPATH="$HOME/.go"
+export NPM_CONFIG_PREFIX="$HOME/.npm-global"
+export GEM_HOME="$HOME/.gems"
 
 export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/.npm-global/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.rvm/bin:$PATH"
+export PATH="$HOME/.gems/bin:$PATH"
 export PATH="$GOPATH/bin:$PATH"
 export PATH="/usr/local/opt/ruby/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
@@ -49,7 +53,6 @@ alias ll="ls -alFh"
 alias l='ll'
 alias vimrc="$EDITOR $HOME/.vimrc"
 alias reload=". $HOME/.bash_profile"
-alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
 
 tn() { tmux new-session -A -s "${1-base}" -c "${2-HOME}" "${3-htop}" 2>/dev/null; }
 
