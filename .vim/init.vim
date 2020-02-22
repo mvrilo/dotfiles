@@ -1,1 +1,1 @@
-/Users/mvrilo/.vimrc
+../.vimrc
