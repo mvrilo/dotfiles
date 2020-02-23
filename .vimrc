@@ -3,8 +3,10 @@ Plug 'tpope/vim-sensible'
 Plug 'mattn/webapi-vim'
 
 if has('nvim')
+  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
   Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
+  Plug 'Shougo/denite.nvim'
   Plug 'Shougo/deoplete.nvim'
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
@@ -13,8 +15,8 @@ endif
 Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
+Plug 'dstein64/vim-startuptime'
 Plug 'mattn/emmet-vim'
-Plug 'mhinz/vim-startify'
 Plug 'scrooloose/nerdtree'
 Plug 'SirVer/ultisnips'
 Plug 'Shougo/neco-syntax'
@@ -47,7 +49,7 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'othree/yajs'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh \| UpdateRemotePlugins'}
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 call plug#end()
 
 colorscheme hybrid
@@ -105,10 +107,10 @@ au BufNewFile,BufRead *.lua,*.go setl noexpandtab ts=4 sw=4 sts=4
 au FileType dockerfile,fstab,systemd,gitconfig,bash,sh,toml setl noexpandtab
 
 map <space> /
-nmap <C-p>      :FZF<CR>
-nmap <C-n>      :tabn<CR>
-nmap <C-m>      :tabp<CR>
-nmap <C-t>      :tabnew<CR>
+nmap <C-p> :FZF<CR>
+nmap <C-n> :tabn<CR>
+nmap <C-m> :tabp<CR>
+nmap <C-t> :tabnew<CR>
 map  <leader>q  :q<cr>
 map  <leader>w  :w<cr>
 map  <leader>wq :wq<cr>
