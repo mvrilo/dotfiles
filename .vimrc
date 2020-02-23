@@ -1,4 +1,4 @@
-call plug#begin("~/.vim/plugs")
+call plug#begin('~/.vim/plugs')
 Plug 'tpope/vim-sensible'
 Plug 'mattn/webapi-vim'
 
@@ -10,7 +10,7 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 Plug 'mattn/emmet-vim'
@@ -27,6 +27,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'junegunn/vim-easy-align', { 'on': 'EasyAlign' }
+Plug 'junegunn/gv.vim'
 Plug 'andymass/vim-matchup'
 Plug 'haya14busa/incsearch.vim'
 Plug 'airblade/vim-gitgutter'
@@ -34,17 +35,16 @@ Plug 'w0rp/ale'
 Plug 'itchyny/lightline.vim'
 Plug 'sbdchd/neoformat'
 Plug 'prettier/prettier'
+Plug 'rhysd/git-messenger.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-rhubarb'
 Plug 'w0ng/vim-hybrid'
 Plug 'mvrilo/vim-caplet'
-Plug 'chr4/nginx.vim'
 Plug 'fatih/vim-go', {'do': 'GoInstallBinaries'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'othree/yajs'
-Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript', {'do': './install.sh \| UpdateRemotePlugins'}
@@ -79,25 +79,19 @@ let g:lightline = {
       \ },
       \ }
 
-let mapleader = ","
+let mapleader = ','
 
 let g:go_version_warning = 0
-let g:go_fmt_command = "goimports"
-
+let g:go_fmt_command = 'goimports'
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 let g:indentLine_enabled = 1
+let g:jsx_ext_required = 0
 
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#option('smart_case', v:true)
 
-let g:jsx_ext_required = 0
-let g:ale_linters = {
-\  'javascript': ['eslint', 'flow', 'prettier'],
-\  'typescript': ['eslint', 'tslint', 'tsserver', 'typecheck', 'prettier']
-\}
-
-if has("mac")
+if has('mac')
   let g:gist_open_browser_after_post = 1
   let g:gist_clip_command = 'pbcopy'
 endif
@@ -121,8 +115,6 @@ map  <leader>wq :wq<cr>
 nmap <silent> <leader>ev :e $MYVIMRC<cr>
 nmap <silent> <leader>tv :tabnew $MYVIMRC<cr>
 nmap <silent> <leader>rv :source $MYVIMRC<cr>:echo "~/.vimrc reloaded!"<cr>
-nmap <silent> <leader>eb :e ~/.bash_profile<cr>
-nmap <silent> <leader>tb :tabnew ~/.bash_profile<cr>
 vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 map  <Leader>lg :<C-U>!git lg <C-R>=expand("%:p")<CR><CR>
 
@@ -147,9 +139,9 @@ set t_ti= t_te=
 set pastetoggle=<leader>z
 set wildmenu
 set wildmode=list:longest
-set ts=2
-set sw=2
-set sts=2
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 set smartindent
 set wrap

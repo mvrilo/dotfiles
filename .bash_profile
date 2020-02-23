@@ -1,6 +1,7 @@
 #!/bin/bash
 
 [[ -f "$HOME/.sensible.bash" ]] && source "$HOME/.sensible.bash"
+[[ -f "$HOME/.fzf.bash" ]] && source "$HOME/.fzf.bash"
 [[ -f "$HOME/.secrets" ]] && source "$HOME/.secrets"
 [[ -f "$HOME/.ssh/config" ]] && complete -o default -W "$(awk '/^Host / {print $2}' < "$HOME/.ssh/config")" scp sftp ssh
 [[ -f /usr/local/etc/bash_completion ]] && source /usr/local/etc/bash_completion
@@ -78,9 +79,6 @@ gencert() {
   openssl req -x509 -newkey rsa:1024 -keyout "${name}.key" -out "${name}.crt" -days 3650 -nodes
   openssl pkcs12 -export -out "${name}.pfx" -inkey "${name}".key -in "${name}.crt"
 }
-
-[[ -f /usr/local/opt/fzf/shell/completion.bash ]] && source /usr/local/opt/fzf/shell/completion.bash
-[[ -f /usr/local/opt/fzf/shell/key-bindings.bash ]] && source /usr/local/opt/fzf/shell/key-bindings.bash
 
 # [[ "$TERM" != "screen"* ]] && tn
 

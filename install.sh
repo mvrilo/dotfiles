@@ -11,7 +11,7 @@ install_mac() {
 	brew tap 'homebrew/bundle'
 	brew bundle install
 
-	pip3 install --user -U pip neovim pynvim
+	pip3 install --user -U pip neovim pynvim msgpack
 	gem install -u neovim
 
 	nvim +PlugUpgrade +qa
