@@ -72,14 +72,11 @@ mas 'cointick', id: 1141688067
 mas 'whatsapp-desktop', id: 1147396723
 
 cask '1password'
-cask 'android-sdk'
-cask 'android-studio'
 cask 'beardedspice'
 cask 'brave-browser'
 cask 'docker'
 cask 'figma'
 cask 'firefox'
-cask 'google-chrome'
 cask 'iterm2'
 cask 'oversight'
 cask 'stremio'
