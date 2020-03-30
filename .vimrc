@@ -38,21 +38,19 @@ Plug 'itchyny/lightline.vim'
 Plug 'sbdchd/neoformat'
 Plug 'prettier/prettier'
 Plug 'rhysd/git-messenger.vim'
-Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-rhubarb'
 Plug 'w0ng/vim-hybrid'
-Plug 'mvrilo/vim-caplet'
+Plug 'joshdick/onedark.vim'
 Plug 'fatih/vim-go', {'do': 'GoInstallBinaries'}
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'pangloss/vim-javascript'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'othree/yajs'
-Plug 'peitalin/vim-jsx-typescript'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 call plug#end()
 
-colorscheme hybrid
+colorscheme onedark
 
 command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
@@ -64,6 +62,11 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
+
+let g:ale_linters = {
+  \ 'typescript': ['eslint'],
+  \ 'javascript': ['eslint']
+  \ }
 
 let g:lightline = {
       \ 'active': {
@@ -87,7 +90,6 @@ let g:go_version_warning = 0
 let g:go_fmt_command = 'goimports'
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
-let g:indentLine_enabled = 1
 let g:jsx_ext_required = 0
 
 let g:deoplete#enable_at_startup = 1
