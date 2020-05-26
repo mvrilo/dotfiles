@@ -2,14 +2,17 @@
 
 set -e
 
+HOMEBREW_URL=https://raw.githubusercontent.com/Homebrew/install/master/install
+
 install_mac() {
-  if ! which brew 2>/dev/null; then
-    /usr/bin/ruby -e \
-      "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" 2>/dev/null >/dev/null
-  fi
+	if ! which brew >/dev/null 2>/dev/null; then
+		echo 'Installing homebrew'
+		/usr/bin/ruby -e "$(curl -fsSL $HOMEBREW_URL)" 2>/dev/null >/dev/null
+	fi
 
 	brew tap 'homebrew/bundle'
 	brew bundle install
+	brew cleanup
 
 	pip3 install --user -U pip neovim pynvim msgpack
 	gem install -u neovim
@@ -52,13 +55,15 @@ install_node() {
 }
 
 install_go() {
-  go get -u github.com/mvrilo/go-cpf/cmd/cpf
-  go get -u github.com/cjbassi/gotop
-  go get -u github.com/jesseduffield/lazydocker
+	go get -u -v \
+		github.com/mvrilo/go-cpf/cmd/cpf \
+		github.com/mvrilo/protog/cmd/protog \
+		github.com/cjbassi/gotop \
+		github.com/jesseduffield/lazydocker
 }
 
 main() {
-  if [ "$(uname -s)" = "Darwin" ]; then
+	if [ "$(uname -s)" = "Darwin" ]; then
 		install_mac
 	else
 		install_linux
@@ -66,8 +71,8 @@ main() {
 
 	git submodule update --init
 
-  install_node
-  install_go
+	install_node
+	install_go
 }
 
 main
