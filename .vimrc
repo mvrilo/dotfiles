@@ -48,9 +48,12 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'othree/yajs'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'cocopon/iceberg.vim'
 call plug#end()
 
-colorscheme onedark
+set termguicolors
+colorscheme iceberg
+" colorscheme base16-black-metal-mayhem
 
 command! Pwd :echo expand('%:p')
 command! Sudow :w! !sudo tee % >/dev/null
@@ -104,15 +107,16 @@ let g:gist_show_privates = 1
 let g:gist_detect_filetype = 1
 
 au BufNewFile,BufReadPost *.csv set nowrap
-au BufNewFile,BufReadPost *.md,*.sql setl expandtab ts=4 sw=4 sts=4
-au BufNewFile,BufRead *.lua,*.go setl noexpandtab ts=4 sw=4 sts=4
+au BufNewFile,BufReadPost *.proto,*.md,*.sql setl expandtab ts=4 sw=4 sts=4
+au BufNewFile,BufReadPost *.lua,*.go,*.php setl noexpandtab ts=4 sw=4 sts=4
 au FileType dockerfile,fstab,systemd,gitconfig,bash,sh,toml setl noexpandtab
 
-map <space> /
-nmap <C-p> :FZF<CR>
-nmap <C-n> :tabn<CR>
-nmap <C-m> :tabp<CR>
+nmap <space> /
+nmap <c-p> :FZF<CR>
+nmap <c-b> :tabp<CR>
+nmap <c-n> :tabn<CR>
 nmap <C-t> :tabnew<CR>
+
 map  <leader>q  :q<cr>
 map  <leader>w  :w<cr>
 map  <leader>wq :wq<cr>
