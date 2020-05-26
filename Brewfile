@@ -1,6 +1,5 @@
 cask_args appdir: "/Applications"
 
-tap 'caskroom/cask'
 tap 'homebrew/services'
 tap 'homebrew/cask-fonts'
 
@@ -17,7 +16,6 @@ brew 'ctags'
 brew 'ctop'
 brew 'curl'
 brew 'dnsmasq'
-brew 'docker-compose'
 brew 'fcrackzip'
 brew 'fd'
 brew 'ffmpeg'
