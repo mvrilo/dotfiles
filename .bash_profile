@@ -26,6 +26,8 @@ export PS1="${LIGHTCYAN}\h ${NC}\w${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGR
 export GOPATH="$HOME/.go"
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 export GEM_HOME="$HOME/.gems"
+export GRPC_GO_LOG_VERBOSITY_LEVEL=99
+export GRPC_GO_LOG_SEVERITY_LEVEL=info
 
 export PATH="$HOME/bin:$PATH"
 export PATH="$HOME/.npm-global/bin:$PATH"
@@ -54,8 +56,32 @@ alias ll="ls -alFh"
 alias l='ll'
 alias vimrc="$EDITOR $HOME/.vimrc"
 alias reload=". $HOME/.bash_profile"
+alias dc="docker-compose"
 
-tn() { tmux new-session -A -s "${1-base}" -c "${2-HOME}" "${3-htop}" 2>/dev/null; }
+# usage: docker runit alpine /bin/sh
+docker() {
+	local docker="$(which docker 2>/dev/null)"
+	local command="${1}"
+	shift
+
+	if [[ "$command" == "runit" ]]; then
+		$docker run -it --rm "$@"
+	else
+		$docker "$command" "$@"
+	fi
+}
+
+tn() {
+	local starter_cmd=$(which top)
+
+	if which gotop &>/dev/null; then
+		starter_cmd=$(which gotop)
+	elif which htop &>/dev/null; then
+		starter_cmd=$(which htop)
+	fi
+
+	tmux new-session -A -s "${1-base}" -c "${2-HOME}" "${3-$starter_cmd}" 2>/dev/null
+}
 
 sshtor() { ssh -o ProxyCommand='nc -x 0:9050 %h %p' "$1"; }
 
@@ -67,8 +93,6 @@ gl()  { git log "$@"; }
 gls() { git log --stat "$@"; }
 gs()  { git status "$@"; }
 gss() { git status -s "$@"; }
-gpl() { git pull "$@"; }
-gps() { git push "$@"; }
 
 onep() { osascript -e "open location \"x-onepassword-helper://search/$1\""; }
 
