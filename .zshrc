@@ -1,3 +1,2 @@
-[[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
-
-[[ -f "$HOME/.shellrc" ]] && source "$HOME/.shellrc"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.shellrc ] && source ~/.shellrc

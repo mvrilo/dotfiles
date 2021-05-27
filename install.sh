@@ -4,75 +4,84 @@ set -e
 
 HOMEBREW_URL=https://raw.githubusercontent.com/Homebrew/install/master/install
 
-install_mac() {
+install_base() {
 	if ! which brew >/dev/null 2>/dev/null; then
 		echo 'Installing homebrew'
 		/usr/bin/ruby -e "$(curl -fsSL $HOMEBREW_URL)" 2>/dev/null >/dev/null
 	fi
 
 	brew tap 'homebrew/bundle'
-	brew bundle install
+	brew bundle install || true
+	brew upgrade || true
 	brew cleanup
 
+	git submodule update --init
+
 	pip3 install --user -U pip neovim pynvim msgpack
-	gem install -u neovim
+	gem install --no-document -u neovim
 
 	nvim +PlugUpgrade +qa
 	nvim +PlugUpdate +qa
 	nvim +UpdateRemotePlugins +qa
-}
-
-install_linux() {
-	sudo apt install -y \
-		bash \
-		git \
-		golang \
-		htop \
-		jq \
-		nmap \
-		nodejs \
-		npm \
-		python \
-		python-pip \
-		python3 \
-		python3-pip \
-		ruby \
-		tmux \
-		tree \
-		vim
+	nvim +GoInstallBinaries +qa
 }
 
 install_node() {
-	npm i -g \
-		eslint \
-		neovim \
-		prettier \
-		serve \
-		tslint \
-		typescript \
-		yarn \
-		ts-node
+	if which npm >/dev/null 2>/dev/null; then
+		npm i -g \
+			eslint \
+			neovim \
+			prettier \
+			serve \
+			tslint \
+			typescript \
+			yarn \
+			quicktype \
+			bash-language-server \
+			ts-node
+	fi
 }
 
 install_go() {
-	go get -u -v \
-		github.com/mvrilo/go-cpf/cmd/cpf \
-		github.com/mvrilo/protog/cmd/protog \
-		github.com/cjbassi/gotop \
-		github.com/jesseduffield/lazydocker
+	if which go >/dev/null 2>/dev/null; then
+		go get -u -v \
+			github.com/mvrilo/go-cpf/cmd/cpf \
+			github.com/mvrilo/protog/cmd/protog \
+			github.com/cjbassi/gotop \
+			github.com/jesseduffield/lazydocker
+	fi
+}
+
+install_rust() {
+	if ! which rustc >/dev/null 2>/dev/null; then
+		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	fi
+
+	rustup update
+	rustup component add clippy miri rls
+	rustup +nightly component add clippy miri rls
+	rustup default nightly
+	cargo install cargo-bloat cargo-fuzz cargo-fix
+
+	(
+		cd /tmp
+		curl -sSfLo rust_analyzer.gz https://github.com/rust-analyzer/rust-analyzer/releases/download/2021-05-24/rust-analyzer-x86_64-apple-darwin.gz
+		gunzip rust_analyzer.gz
+		chmod +x rust_analyzer
+		mv rust_analyzer $HOME/bin/
+	)
 }
 
 main() {
-	if [ "$(uname -s)" = "Darwin" ]; then
-		install_mac
-	else
-		install_linux
+	if [ "$(uname -s)" != "Darwin" ]; then
+		echo "only mac os supported"
+		exit 1
 	fi
 
-	git submodule update --init
-
+	install_base
 	install_node
 	install_go
+	install_rust
 }
 
 main

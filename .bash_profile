@@ -23,4 +23,4 @@ if command -v __git_ps1 &>/dev/null; then
   branch='`__git_ps1 " (%s)"`'
 fi
 
-export PS1="${LIGHTCYAN}\h ${NC}\w${DARKGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
+export PS1="${LIGHTCYAN}\h ${NC}\w${LIGHTGRAY}${branch}${NC} ${WHITE}\u ${LIGHTGREEN}\$${NC} "
