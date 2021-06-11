@@ -7,6 +7,8 @@
 
 [[ -f "$HOME/.shellrc" ]] && source "$HOME/.shellrc"
 
+eval "$(direnv hook bash)"
+
 shopt -s nocaseglob
 shopt -s histappend
 shopt -s cdspell

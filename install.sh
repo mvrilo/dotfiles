@@ -2,9 +2,9 @@
 
 set -e
 
-HOMEBREW_URL=https://raw.githubusercontent.com/Homebrew/install/master/install
-
 install_base() {
+	HOMEBREW_URL=https://raw.githubusercontent.com/Homebrew/install/master/install
+
 	if ! which brew >/dev/null 2>/dev/null; then
 		echo 'Installing homebrew'
 		/usr/bin/ruby -e "$(curl -fsSL $HOMEBREW_URL)" 2>/dev/null >/dev/null
@@ -38,7 +38,8 @@ install_node() {
 			yarn \
 			quicktype \
 			bash-language-server \
-			ts-node
+			ts-node \
+			typescript-language-server
 	fi
 }
 
@@ -48,7 +49,8 @@ install_go() {
 			github.com/mvrilo/go-cpf/cmd/cpf \
 			github.com/mvrilo/protog/cmd/protog \
 			github.com/cjbassi/gotop \
-			github.com/jesseduffield/lazydocker
+			github.com/jesseduffield/lazydocker \
+			github.com/mgechev/revive
 	fi
 }
 

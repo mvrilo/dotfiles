@@ -44,12 +44,14 @@ gencert() {
 }
 
 tn() {
-	starter_cmd=$(top)
-
 	if which gotop &>/dev/null; then
 		starter_cmd=$(which gotop)
+	elif which bottom &>/dev/null; then
+		starter_cmd=$(which bottom)
 	elif which htop &>/dev/null; then
 		starter_cmd=$(which htop)
+	else
+		starter_cmd=$(which top)
 	fi
 
 	tmux new-session -A -s "${1-base}" -c "${2-HOME}" "${3-$starter_cmd}" 2>/dev/null
@@ -64,7 +66,6 @@ gls() { git log --stat "$@"; }
 gs()  { git status "$@"; }
 gss() { git status -s "$@"; }
 
-# simpler curl
 scurl() {
 	curl --fail --silent --show-error "$@"
 }

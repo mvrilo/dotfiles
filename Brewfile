@@ -2,6 +2,7 @@ cask_args appdir: "/Applications"
 
 tap 'homebrew/services'
 tap 'homebrew/cask-fonts'
+tap 'mvrilo/taps'
 
 brew 'bash'
 brew 'bash-completion'
@@ -10,6 +11,9 @@ brew 'coreutils'
 brew 'ctags'
 brew 'ctop'
 brew 'curl'
+brew 'duf'
+brew 'git-delta'
+brew 'direnv'
 brew 'dnsmasq'
 brew 'fd'
 brew 'ffmpeg'
@@ -44,6 +48,7 @@ brew 'youtube-dl'
 
 mas 'cointick', id: 1141688067
 mas 'whatsapp-desktop', id: 1147396723
+mas 'tailscale', id: 1475387142
 
 cask '1password'
 cask 'alacritty'
@@ -57,5 +62,6 @@ cask 'stremio'
 cask 'slack'
 cask 'spectacle'
 cask 'spotify'
+cask 'telegram'
 cask 'transmission'
 cask 'vlc'
