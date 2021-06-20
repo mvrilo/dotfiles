@@ -23,7 +23,6 @@ install_base() {
 	nvim +PlugUpgrade +qa
 	nvim +PlugUpdate +qa
 	nvim +UpdateRemotePlugins +qa
-	nvim +GoInstallBinaries +qa
 }
 
 install_node() {
@@ -46,6 +45,8 @@ install_node() {
 install_go() {
 	if which go >/dev/null 2>/dev/null; then
 		go get -u -v \
+			google.golang.org/protobuf/cmd/protoc-gen-go \
+			honnef.co/go/tools/cmd/staticcheck \
 			github.com/mvrilo/go-cpf/cmd/cpf \
 			github.com/mvrilo/protog/cmd/protog \
 			github.com/cjbassi/gotop \
