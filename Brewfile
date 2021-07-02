@@ -23,7 +23,7 @@ brew 'go'
 brew 'grep'
 brew 'htop'
 brew 'jq'
-brew 'lua'
+brew 'luajit', args: ['HEAD']
 brew 'neovim', args: ['HEAD']
 brew 'nmap'
 brew 'node'
@@ -40,6 +40,7 @@ brew 'tig'
 brew 'tmux'
 brew 'tor'
 brew 'tree'
+brew 'tree-sitter', args: ['HEAD']
 brew 'vim'
 brew 'watch'
 brew 'wget'
