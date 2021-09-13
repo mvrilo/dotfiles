@@ -23,7 +23,7 @@ else
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
 
-Plug 'junegunn/fzf', { 'do': './install --all' }
+Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'leafgarland/typescript-vim'
@@ -51,6 +51,8 @@ Plug 'buoto/gotests-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'racer-rust/vim-racer'
 
+Plug 'bufbuild/vim-buf'
+
 Plug 'joshdick/onedark.vim'
 call plug#end()
 
@@ -77,6 +79,7 @@ let g:ale_linters = {
   \ 'typescriptreact': ['eslint'],
   \ 'typescript': ['eslint'],
   \ 'javascript': ['eslint'],
+  \ 'proto': ['buf-lint'],
   \ 'tsx': ['eslint'],
   \ 'jsx': ['eslint'],
   \ }
@@ -87,7 +90,6 @@ let g:ale_fixers = {
   \ 'javascript': ['eslint'],
   \ 'tsx': ['eslint'],
   \ 'jsx': ['eslint'],
-  \ 'rust': ['rust_analyzer','cargo','rustfmt'],
   \ }
 
 let g:lightline = {

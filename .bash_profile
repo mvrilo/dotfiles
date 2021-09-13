@@ -1,11 +1,16 @@
 #!/bin/bash
 
-[[ -f "$HOME/.fzf.bash" ]] && source "$HOME/.fzf.bash"
+# set -o vi
+
 [[ -f "$HOME/.sensible.bash" ]] && source "$HOME/.sensible.bash"
 [[ -f /usr/local/etc/bash_completion ]] && source /usr/local/etc/bash_completion
 [[ -f "$HOME/.ssh/config" ]] && complete -o default -W "$(awk '/^Host / {print $2}' < "$HOME/.ssh/config")" scp sftp ssh
 
 [[ -f "$HOME/.shellrc" ]] && source "$HOME/.shellrc"
+[[ -f "$HOME/.fzf.bash" ]] && source "$HOME/.fzf.bash"
+
+source <(kubectl completion bash)
+complete -F __start_kubectl k
 
 eval "$(direnv hook bash)"
 

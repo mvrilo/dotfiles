@@ -13,6 +13,7 @@ install_base() {
 	brew tap 'homebrew/bundle'
 	brew bundle install || true
 	brew upgrade || true
+	$(brew --prefix)/opt/fzf/install
 	brew cleanup
 
 	git submodule update --init
