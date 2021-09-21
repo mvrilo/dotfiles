@@ -1,5 +1,3 @@
-cask_args appdir: "/Applications"
-
 tap 'homebrew/services'
 tap 'homebrew/cask-fonts'
 tap 'mvrilo/taps'
