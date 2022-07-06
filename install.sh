@@ -29,10 +29,10 @@ install_base() {
 install_node() {
 	if which npm >/dev/null 2>/dev/null; then
 		npm i -g \
+			npm \
 			eslint \
 			neovim \
 			prettier \
-			serve \
 			tslint \
 			typescript \
 			yarn \
@@ -45,14 +45,11 @@ install_node() {
 
 install_go() {
 	if which go >/dev/null 2>/dev/null; then
-		go get -u -v \
-			google.golang.org/protobuf/cmd/protoc-gen-go \
-			honnef.co/go/tools/cmd/staticcheck \
-			github.com/mvrilo/go-cpf/cmd/cpf \
-			github.com/mvrilo/protog/cmd/protog \
-			github.com/cjbassi/gotop \
-			github.com/jesseduffield/lazydocker \
-			github.com/mgechev/revive
+		go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
+		go install honnef.co/go/tools/cmd/staticcheck@latest
+		go install github.com/cjbassi/gotop@latest
+		go install github.com/jesseduffield/lazydocker@latest
+		go install github.com/mgechev/revive@latest
 	fi
 }
 
@@ -62,18 +59,10 @@ install_rust() {
 	fi
 
 	rustup update
-	rustup component add clippy miri rls
-	rustup +nightly component add clippy miri rls
-	rustup default nightly
-	cargo install cargo-bloat cargo-fuzz cargo-fix
-
-	(
-		cd /tmp
-		curl -sSfLo rust_analyzer.gz https://github.com/rust-analyzer/rust-analyzer/releases/download/2021-05-24/rust-analyzer-x86_64-apple-darwin.gz
-		gunzip rust_analyzer.gz
-		chmod +x rust_analyzer
-		mv rust_analyzer $HOME/bin/
-	)
+	rustup component add clippy rls
+	rustup +nightly component add clippy rls
+	rustup default stable
+	cargo install cargo-bloat cargo-fuzz cargo-fix cargo-cache cargo-count
 }
 
 main() {
@@ -83,7 +72,7 @@ main() {
 	fi
 
 	install_base
-	install_node
+	# install_node
 	install_go
 	install_rust
 }

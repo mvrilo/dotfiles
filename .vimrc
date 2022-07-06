@@ -2,14 +2,14 @@ call plug#begin('~/.vim/plugs')
 Plug 'tpope/vim-sensible'
 Plug 'mattn/webapi-vim'
 
-if has('nvim-0.5')
+if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'tjdevries/lsp_extensions.nvim'
   Plug 'nvim-lua/completion-nvim'
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-lua/lsp-status.nvim'
-  " Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
   Plug 'hrsh7th/nvim-compe'
 endif
 
@@ -53,11 +53,15 @@ Plug 'racer-rust/vim-racer'
 
 Plug 'bufbuild/vim-buf'
 
-Plug 'joshdick/onedark.vim'
+" Plug 'joshdick/onedark.vim'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+
+Plug 'ziglang/zig.vim'
 call plug#end()
 
 set termguicolors
-colorscheme onedark
+" colorscheme onedark
+colorscheme tokyonight
 
 command! Pwd :echo expand('%:p')
 
@@ -69,12 +73,13 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
+let g:tokyonight_style = "night"
 let g:completion_enable_auto_popup = 1
 let g:ale_completion_enabled = 1
 let g:ale_completion_autoimport = 1
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-  \ 'rust': ['rust_analyzer','cargo','rustfmt'],
+  \ 'rust': ['analyzer','cargo','rustfmt'],
   \ 'go': ['revive', 'gofmt', 'goimports'],
   \ 'typescriptreact': ['eslint'],
   \ 'typescript': ['eslint'],
@@ -169,6 +174,18 @@ map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)
 map g/ <Plug>(incsearch-stay)
 
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Using Lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
 " Set completeopt to have a better completion experience
 " :help completeopt
 " menuone: popup even when there's only one match
@@ -203,59 +220,31 @@ set updatetime=200
 
 match ErrorMsg '\%81v'
 
-if has('nvim-0.5')
+if has('nvim')
 lua << EOF
   local nvim_lsp = require('lspconfig')
 
-  local on_attach = function(client)
-    require('lsp-status').on_attach(client)
+  -- local on_attach = function(client)
+  --   require('lsp-status').on_attach(client)
+  --   require('completion').on_attach()
+  -- end
 
-    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-    local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+  -- nvim_lsp["gopls"].setup {
+  --   on_attach = on_attach,
+  --   gopls = {
+  --     settings = {
+  --       analyses = {
+  --         unusedparams = true,
+  --       },
+  --       staticcheck = true,
+  --       codelenses = {
+  --         gc_details = true,
+  --       }
+  --     }
+  --   },
+  -- }
 
-    buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- Mappings
-    local opts = { noremap=true, silent=true }
-
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-    buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-    buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-    buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
-    require('completion').on_attach()
-  end
-
-  nvim_lsp["gopls"].setup {
-    on_attach = on_attach,
-    gopls = {
-      settings = {
-        analyses = {
-          unusedparams = true,
-        },
-        staticcheck = true,
-        codelenses = {
-          gc_details = true,
-        }
-      }
-    },
-  }
-
-  local lservers = { "rust_analyzer", "tsserver", "bashls" }
+  local lservers = { "gopls", "rust_analyzer", "tsserver", "bashls" }
   for _, lsp in ipairs(lservers) do
     nvim_lsp[lsp].setup { on_attach = on_attach }
   end
