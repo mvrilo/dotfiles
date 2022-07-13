@@ -2,18 +2,16 @@
 
 set -e
 
-install_base() {
+setup_base() {
 	HOMEBREW_URL=https://raw.githubusercontent.com/Homebrew/install/master/install
 
 	if ! which brew >/dev/null 2>/dev/null; then
-		echo 'Installing homebrew'
 		/usr/bin/ruby -e "$(curl -fsSL $HOMEBREW_URL)" 2>/dev/null >/dev/null
 	fi
 
 	brew tap 'homebrew/bundle'
-	brew bundle install || true
+	brew bundle check || brew bundle || true
 	brew upgrade || true
-	$(brew --prefix)/opt/fzf/install
 	brew cleanup
 
 	git submodule update --init
@@ -21,12 +19,22 @@ install_base() {
 	pip3 install --user -U pip neovim pynvim msgpack
 	gem install --no-document -u neovim
 
-	nvim +PlugUpgrade +qa
-	nvim +PlugUpdate +qa
+	nvim +PlugUpgrade +PlugUpdate +qa
 	nvim +UpdateRemotePlugins +qa
 }
 
-install_node() {
+setup_shell() {
+	fish_shell=$(brew --prefix fish)/bin/fish
+
+	if ! grep fish /etc/shells; then
+		echo "$fish_shell" | sudo tee -a /etc/shells
+		chsh -s "$fish_shell"
+	fi
+
+	$fish_shell -l -c 'type -q fisher; and exit 0; or curl -sL https://git.io/fisher | source; fisher install jorgebucaran/fisher'
+}
+
+setup_node() {
 	if which npm >/dev/null 2>/dev/null; then
 		npm i -g \
 			npm \
@@ -37,32 +45,42 @@ install_node() {
 			typescript \
 			yarn \
 			quicktype \
-			bash-language-server \
 			ts-node \
+			bash-language-server \
 			typescript-language-server
 	fi
 }
 
-install_go() {
-	if which go >/dev/null 2>/dev/null; then
-		go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
-		go install honnef.co/go/tools/cmd/staticcheck@latest
-		go install github.com/cjbassi/gotop@latest
-		go install github.com/jesseduffield/lazydocker@latest
-		go install github.com/mgechev/revive@latest
-	fi
-}
-
-install_rust() {
+setup_rust() {
 	if ! which rustc >/dev/null 2>/dev/null; then
 		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 	fi
 
+	rustup self update
 	rustup update
 	rustup component add clippy rls
-	rustup +nightly component add clippy rls
+	rustup +nightly component add clippy rls miri
 	rustup default stable
-	cargo install cargo-bloat cargo-fuzz cargo-fix cargo-cache cargo-count
+
+	rustup target add \
+		aarch64-linux-android \
+		armv7-linux-androideabi \
+		x86_64-linux-android \
+		i686-linux-android \
+		aarch64-apple-ios \
+		x86_64-apple-ios
+
+	cargo install \
+		cargo-bloat \
+		cargo-fuzz \
+		cargo-fix \
+		cargo-cache \
+		cargo-make \
+		cargo-watch
+}
+
+setup_cleanup() {
+	brew cleanup
 }
 
 main() {
@@ -71,10 +89,11 @@ main() {
 		exit 1
 	fi
 
-	install_base
-	# install_node
-	install_go
-	install_rust
+	setup_base
+	setup_shell
+	setup_node
+	setup_rust
+	setup_cleanup
 }
 
 main

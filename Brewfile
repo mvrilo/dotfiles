@@ -1,6 +1,6 @@
 tap 'homebrew/services'
 tap 'homebrew/cask-fonts'
-tap 'mvrilo/taps'
+#tap 'mvrilo/taps'
 
 brew 'bash'
 brew 'bash-completion'
@@ -10,39 +10,45 @@ brew 'coreutils'
 brew 'ctags'
 brew 'ctop'
 brew 'curl'
+brew 'deno'
 brew 'direnv'
 brew 'dnsmasq'
 brew 'duf'
 brew 'fd'
 brew 'ffmpeg'
+brew 'fish'
 brew 'fzf'
 brew 'git'
 brew 'git-delta'
 brew 'gnupg'
 brew 'go'
 brew 'htop'
+brew 'hwatch'
 brew 'jq'
 brew 'lima'
-brew 'luajit', args: ['HEAD']
-brew 'neovim', args: ['HEAD']
 brew 'nmap'
 brew 'node'
+brew 'protoc-gen-go'
 brew 'python3'
 brew 'reattach-to-user-namespace'
+brew 'revive'
 brew 'ripgrep'
 brew 'rkhunter'
 brew 'rust-analyzer'
 brew 'shellcheck'
 brew 'speedtest-cli'
 brew 'sqlite'
+brew 'staticcheck'
 brew 'tmux'
 brew 'tree'
-brew 'tree-sitter', args: ['HEAD']
 brew 'vim'
 brew 'wget'
 brew 'you-get'
 brew 'youtube-dl'
-brew 'hwatch'
+
+brew 'tree-sitter', args: ['HEAD']
+brew 'luajit', args: ['HEAD']
+brew 'neovim', args: ['HEAD']
 
 mas 'whatsapp-desktop', id: 1147396723
 mas 'tailscale', id: 1475387142

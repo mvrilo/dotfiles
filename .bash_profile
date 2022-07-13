@@ -8,9 +8,7 @@
 
 [[ -f "$HOME/.shellrc" ]] && source "$HOME/.shellrc"
 [[ -f "$HOME/.fzf.bash" ]] && source "$HOME/.fzf.bash"
-
-source <(kubectl completion bash)
-complete -F __start_kubectl k
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 
 eval "$(direnv hook bash)"
 

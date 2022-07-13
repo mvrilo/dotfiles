@@ -41,6 +41,14 @@ alias k="kubectl"
 alias alpine="docker run --rm -it alpine:latest /bin/sh"
 alias cat="bat -p"
 
+alias genpass="openssl rand -hex 64"
+alias gd="git diff"
+alias gl="git log"
+alias gls="git log --stat"
+alias gs="git status"
+alias gss="git status -s"
+alias scurl="curl --fail --silent --show-error"
+
 gencert() {
   name="${1-server}"
   openssl req -x509 -newkey rsa:1024 -keyout "${name}.key" -out "${name}.crt" -days 3650 -nodes
@@ -59,17 +67,4 @@ tn() {
 	fi
 
 	tmux new-session -A -s "${1-base}" -c "${2-HOME}" "${3-$starter_cmd}" 2>/dev/null
-}
-
-genpass() { openssl rand -hex "${1-64}"; }
-sshtor() { ssh -o ProxyCommand='nc -x 0:9050 %h %p' "$1"; }
-
-gd()  { git diff "$@"; }
-gl()  { git log "$@"; }
-gls() { git log --stat "$@"; }
-gs()  { git status "$@"; }
-gss() { git status -s "$@"; }
-
-scurl() {
-	curl --fail --silent --show-error "$@"
 }
