@@ -20,7 +20,7 @@ setup_base() {
 	gem install --no-document -u neovim
 
 	nvim +PlugUpgrade +PlugUpdate +qa
-	nvim +UpdateRemotePlugins +qa
+	nvim +UpdateRemotePlugins +GoUpdateBinaries +qa
 }
 
 setup_shell() {
@@ -29,9 +29,8 @@ setup_shell() {
 	if ! grep fish /etc/shells; then
 		echo "$fish_shell" | sudo tee -a /etc/shells
 		chsh -s "$fish_shell"
+		$fish_shell -l -c 'type -q fisher; and exit 0; or curl -sL https://git.io/fisher | source; fisher install jorgebucaran/fisher'
 	fi
-
-	$fish_shell -l -c 'type -q fisher; and exit 0; or curl -sL https://git.io/fisher | source; fisher install jorgebucaran/fisher'
 }
 
 setup_node() {
