@@ -1,0 +1,8 @@
+require('core.plugins')
+require('core.lsp')
+require('core.cmp')
+require('core.telescope')
+require('core.options')
+require('core.autocmds')
+require('core.keymaps')
+require('core.globals')
