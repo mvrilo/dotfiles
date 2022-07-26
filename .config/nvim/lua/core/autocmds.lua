@@ -69,23 +69,3 @@ autocmd('BufNewFile,BufReadPost', {
   pattern = '*.lua,*.go,*.php,*.js,*.typescript,Dockerfile',
   command = 'set expandtab ts=4 sw=4 sts=4'
 })
-
--- vim.filetype.add {
---   extension = {
---     png = 'image',
---     jpg = 'image',
---     jpeg = 'image',
---     tf = 'terraform',
---     tsx = 'typescriptreact',
---     ts = 'typescript',
---   },
---   filename = {
---     ['.eslintrc'] = 'json',
---     ['.prettierrc'] = 'json',
---     ['.babelrc'] = 'json',
---     ['.stylelintrc'] = 'json',
---   },
---   pattern = {
---     ['.env.*'] = 'sh',
---   },
--- }

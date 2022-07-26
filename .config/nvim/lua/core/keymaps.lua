@@ -38,6 +38,7 @@ map('n', '<leader>q', ':q<CR>')
 map('n', '<leader>w', ':w<CR>')
 map('n', '<leader>wq', ':wq<CR>')
 map('n', '<leader>n', ':tabnew<CR>')
+map("n", "<leader>lg", ":Telescope live_grep<CR>")
 
 -- Visual move
 map('v', '<', '<gv')

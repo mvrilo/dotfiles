@@ -19,8 +19,9 @@ setup_base() {
 	pip3 install --user -U pip neovim pynvim msgpack
 	gem install --no-document -u neovim
 
-	nvim +PlugUpgrade +PlugUpdate +qa
-	nvim +UpdateRemotePlugins +GoUpdateBinaries +qa
+	vim +PlugUpgrade +PlugUpdate +qa
+	vim +UpdateRemotePlugins +GoUpdateBinaries +qa
+	nvim +PackerSync +qa
 }
 
 setup_shell() {
