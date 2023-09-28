@@ -11,10 +11,15 @@ vim.g.jsx_ext_required = 0
 vim.g.rustfmt_autosave = 1
 vim.g.t_Co = 256
 vim.g.colorscheme = "onedark"
+vim.api.nvim_set_option('updatetime', 300)
 
 vim.cmd([[
   set background=dark
   set termguicolors
+  set signcolumn=yes
+
+  autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
+
   try
     colorscheme onedark
   catch

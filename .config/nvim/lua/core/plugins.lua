@@ -23,22 +23,33 @@ packer.startup(function()
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
 			"hrsh7th/cmp-emoji",
+      "hrsh7th/cmp-vsnip",
+      "hrsh7th/vim-vsnip",
 			"hrsh7th/cmp-calc",
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-nvim-lsp-signature-help",
-			"saadparwaiz1/cmp_luasnip",
-			"L3MON4D3/LuaSnip",
-			"rafamadriz/friendly-snippets",
 		},
 		config = function()
-			require("luasnip.loaders.from_vscode").load()
+			-- require("luasnip.loaders.from_vscode").load()
 		end,
 	}
+
+  use {
+	  'ms-jpq/coq_nvim', branch = 'coq',
+  }
+  use {
+	  'ms-jpq/coq.artifacts', branch = 'artifacts',
+  }
+  use {
+	  'ms-jpq/coq.thirdparty', branch = '3p',
+  }
 
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.0',
 		requires = { 'nvim-lua/plenary.nvim' },
 	}
+
+  use 'simrat39/rust-tools.nvim'
 
 	use {
 		'tpope/vim-dispatch',
@@ -52,6 +63,10 @@ packer.startup(function()
 		cmd = 'ALEEnable',
 		config = 'vim.cmd[[ALEEnable]]'
 	}
+	-- use {
+	-- 'w0rp/ale',
+	-- 	config = function() require('ale').setup() end
+	-- }
 
 	use {
 		'nvim-treesitter/nvim-treesitter',
@@ -64,10 +79,10 @@ packer.startup(function()
 		config = function() require('gitsigns').setup() end
 	}
 
-  use 'voldikss/vim-floaterm'
+	use 'voldikss/vim-floaterm'
 	use 'leafgarland/typescript-vim'
 	use 'peitalin/vim-jsx-typescript'
-	use 'w0rp/ale'
+
 	use {
 		'mattn/gist-vim',
 		cmd = {'Gist'},
@@ -98,11 +113,53 @@ packer.startup(function()
 	use 'racer-rust/vim-racer'
 	use 'jbyuki/venn.nvim'
 
+  use 'ray-x/go.nvim'
+  use 'ray-x/guihua.lua'
+
   use 'joshdick/onedark.vim'
 	use {
 		'folke/tokyonight.nvim',
-		theme = 'tokyonight',
+		theme = 'tokyonight'
 	}
+  use {
+    'rmagatti/goto-preview',
+    config = function()
+      require('goto-preview').setup {}
+    end
+  }
+
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    tag = 'nightly',
+    config = function()
+      require("nvim-tree").setup()
+    end
+  }
+
+  use 'mfussenegger/nvim-dap'
+
+  use {
+    "rcarriga/nvim-dap-ui",
+    requires = {"mfussenegger/nvim-dap"}
+  }
+
+  use({
+    "jackMort/ChatGPT.nvim",
+    config = function()
+      require("chatgpt").setup({
+        welcome_message = " hey ",
+        chat_input = {
+          prompt = " >  ",
+        }
+      })
+    end,
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "nvim-telescope/telescope.nvim"
+    }
+  })
 end)
 
 if bootstrap then
