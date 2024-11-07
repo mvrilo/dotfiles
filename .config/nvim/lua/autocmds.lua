@@ -59,13 +59,13 @@ autocmd('BufLeave', {
 })
 
 -- No wrap for specific filetypes
-autocmd('BufNewFile,BufReadPost', {
+autocmd('BufNewFile', {
   pattern = '*.proto,*.md,*.sql,*.yaml',
   command = 'set nowrap'
 })
 
 -- expand tab for specific filetypes
-autocmd('BufNewFile,BufReadPost', {
+autocmd('BufNewFile', {
   pattern = '*.lua,*.go,*.php,*.js,*.typescript,Dockerfile',
   command = 'set expandtab ts=4 sw=4 sts=4'
 })

@@ -1,5 +1,3 @@
-vim.g.mapleader = ","
-
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true, silent = true }
   if opts then
@@ -52,6 +50,8 @@ map("n", "<leader>fc", ":Telescope commands<CR>")
 map("n", "<leader>fr", ":Telescope resume<CR>")
 map("n", "<leader>fq", ":Telescope quickfix<CR>")
 map("n", "<leader>/", ":Telescope current_buffer_fuzzy_find<CR>")
+
+map("n", "<leader>gp", "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", {noremap=true})
 
 -- Visual move
 map('v', '<', '<gv')
